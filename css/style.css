@@ -10,14 +10,6 @@ html {
   overflow: visible;
 }
 
-.container>div {
-  border: 1px solid #4f90f2;
-}
-
-.container>div.selected {
-  background: #aaccff;
-}
-
 .selection-area {
   background: #4f90f22d;
   border: 1px solid #4f90f2;
@@ -42,24 +34,52 @@ html {
 }
 
 .leftcol {
-  width: 30px;
+  width: 100px;
   position: -webkit-sticky;
   position: sticky;
   left: 0;
-  z-index: 2;
-  background-color: #00ffff;
 }
 
 .toprow {
-  height: 30px;
+  height: 50px;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 3;
-  background-color: #ff0000;
+  z-index: 10 !important;
 }
 
 .toprowleftcol {
+  background-color: #afeeff !important;
+  z-index: 10 !important;
+}
+
+.times {
+  z-index: 2 !important;
+}
+
+.container {
   z-index: 1 !important;
-  background-color: #4f90f2 !important;
+}
+
+.doctor {
+  position: absolute;
+  border: 1px solid #4f90f2;
+  background-color: #afeeff !important;
+}
+
+.time {
+  position: absolute;
+  border: 1px solid #4f90f2;
+  background-color: #afeeff !important;
+}
+
+.slot {
+  position: absolute;
+  border: 1px solid #4f90f2;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.slot.selected {
+  background: #aaccff;
 }
