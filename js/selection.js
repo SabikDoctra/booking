@@ -5,7 +5,7 @@ const selection = new SelectionArea({
 
 selection.on('beforestart', (evt) => {
 	const allowedButtons = [1];
-	if (!evt.store.selected.includes(evt.event.target)) {
+	if (!evt.store.selected.includes(evt.event.target)&&!evt.store.selected.includes(evt.event.target.parentElement)) {
 		allowedButtons.push(2);
 	}
 

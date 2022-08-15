@@ -30,61 +30,61 @@ let jsonData = {
 			"ИД": "0000256_20220809",
 			"Врач": "Врач 1",
 			"Подразделение": "Подразделение 1",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-10"
 		},
 		{
 			"ИД": "0000257_20220809",
 			"Врач": "Врач 2",
 			"Подразделение": "Подразделение 2",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-10"
 		},
 		{
 			"ИД": "0000256_20220809",
 			"Врач": "Врач 1",
 			"Подразделение": "Подразделение 1",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-11"
 		},
 		{
 			"ИД": "0000257_20220809",
 			"Врач": "Врач 2",
 			"Подразделение": "Подразделение 2",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-11"
 		},
 		{
 			"ИД": "0000256_20220809",
 			"Врач": "Врач 1",
 			"Подразделение": "Подразделение 1",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-12"
 		},
 		{
 			"ИД": "0000257_20220809",
 			"Врач": "Врач 2",
 			"Подразделение": "Подразделение 2",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-12"
 		},
 		{
 			"ИД": "0000256_20220809",
 			"Врач": "Врач 1",
 			"Подразделение": "Подразделение 1",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-13"
 		},
 		{
 			"ИД": "0000257_20220809",
 			"Врач": "Врач 2",
 			"Подразделение": "Подразделение 2",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-13"
 		},
 		{
 			"ИД": "0000256_20220809",
 			"Врач": "Врач 1",
 			"Подразделение": "Подразделение 1",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-14"
 		},
 		{
 			"ИД": "0000257_20220809",
 			"Врач": "Врач 2",
 			"Подразделение": "Подразделение 2",
-			"Дата": "2022-08-09"
+			"Дата": "2022-08-14"
 		}
 	],
 	"times": [
@@ -119,7 +119,7 @@ let jsonData = {
 			"ОтступВМинутах": 30,
 			"ИДШапки": "0000257_20220808",
 			"Продолжительность": 75,
-			"Пациент": "Вася"
+			"Пациент": ""
 		},
 		{
 			"ИД": "0000257_202208081145",
@@ -158,39 +158,66 @@ let jsonData = {
 	]
 }*/
 
-const legendBlock = document.querySelector("#legend");
 const headerBlock = document.querySelector("#header");
 const timesBlock = document.querySelector("#times");
 const containerBlock = document.querySelector("#container");
-const hourHeight = jsonData.hourHeight;
-const hourWidth = 100;
-const slotWidth = 200;
-const borderSize = 1;
-const headerHeight = 50;
-const departmentHeight = 0;
+const cssRoot = document.querySelector(":root");
 
+cssRoot.style.setProperty('--hourHeight', `${jsonData.hourHeight}px`);
+
+let curDateBlock;
+let curDate = "";
+let curDateLength = 0;
+let totalDateLength = 0;
 
 function draw() {
-	if(jsonData.redraw)
-	{	
-		legendBlock.style = `top: -1px; left: -1px; height: ${headerHeight-borderSize}px; width: ${hourWidth-borderSize}px; `;
+	if (jsonData.redraw) {
+		curDate = "";
+		curDateBlock = "";
+		curDateLength = 0;
+		totalDateLength = 0;
 
-		jsonData.header.forEach((element, index) => drawDoctor(element, index));
+		jsonData.header.forEach((element, index) => drawHeader(element, index));
+		curDateBlock.style = 
+			`left: calc(${totalDateLength} * var(--slotWidth) - var(--borderSize)); 
+			width: calc(${curDateLength} * var(--slotWidth) + var(--borderSize));`;
+
+		headerBlock.appendChild(curDateBlock);
+
 		jsonData.times.forEach((element, index) => drawTimes(element, index));
-		jsonData.data.forEach(element => drawSlots(element,!jsonData.redraw));
+		jsonData.data.forEach(element => drawSlots(element, !jsonData.redraw));
 	} else {
-		jsonData.data.forEach(element => drawSlots(element,!jsonData.redraw));
+		jsonData.data.forEach(element => drawSlots(element, !jsonData.redraw));
 	}
 }
 
-function drawDoctor(element, index) {
+function drawHeader(element, index) {
+	if (curDateBlock == "") {
+		curDateBlock = document.createElement("div");
+		curDateBlock.innerHTML = element.Дата;
+		curDateBlock.className = "header date";
+	}
+	if (curDate != "" && curDate != element.Дата) {
+		curDateBlock.style =
+			`left: calc(${totalDateLength} * var(--slotWidth) - var(--borderSize)); 
+			width: calc(${curDateLength} * var(--slotWidth) + var(--borderSize));`;
+
+		headerBlock.appendChild(curDateBlock);
+		curDateBlock = "";
+		totalDateLength = totalDateLength + curDateLength;
+		curDateLength = 0;
+	}
+	curDateLength++;
+	curDate = element.Дата;
+
 	divElement = document.createElement("div");
 	divElement.innerHTML = element.Врач;
-	divElement.className = "doctor";
+	divElement.className = "header doctor";
 	divElement.setAttribute("id", "id" + element.ИД);
 	divElement.setAttribute("index", index);
-	divElement.style = `top: ${departmentHeight-1}px; left: ${index*slotWidth-1}px; height: ${headerHeight-borderSize}px; width: ${slotWidth-borderSize}px;`;
-	headerBlock.appendChild(divElement);	
+	divElement.style = `left: calc(${index} * var(--slotWidth) - var(--borderSize));`;
+
+	headerBlock.appendChild(divElement);
 }
 
 function drawTimes(element, index) {
@@ -199,25 +226,45 @@ function drawTimes(element, index) {
 	divElement.className = "time";
 	divElement.setAttribute("id", "id" + element.ИД);
 	divElement.setAttribute("index", index);
-	divElement.style = `top: ${index*hourHeight-1}px; left: -1px; height: ${hourHeight-borderSize}px; width: ${hourWidth-borderSize}px; `;
-	timesBlock.appendChild(divElement);	
+	divElement.style = `top: calc(${index} * var(--hourHeight) - var(--borderSize));`;
+
+	timesBlock.appendChild(divElement);
 }
 
-function drawSlots(element,findElement) {
-	if(findElement) {
-		divElement = document.querySelector(`#id${element.ИД}`);	
-		divElement.innerHTML = element.Пациент;
-		divElement.className = "slot";		
+function drawSlots(element, findElement) {
+	if (findElement) {
+		divGrid = document.querySelector(`#id${element.ИД}`);
+		divGrid.className = "slot-grid";
 	} else {
-		doctorBlock = document.querySelector(`#id${element.ИДШапки}`);	
+		doctorBlock = document.querySelector(`#id${element.ИДШапки}`);
 		index = doctorBlock.getAttribute("index");
-		divElement = document.createElement("div");
-		divElement.setAttribute("id", "id" + element.ИД);			
-		divElement.style = `top: ${(hourHeight*element.ОтступВМинутах)/60-1}px; left: ${index*slotWidth-1}px; height: ${(hourHeight*element.Продолжительность)/60-borderSize}px; width: ${slotWidth-borderSize}px; `;			
-		divElement.innerHTML = element.Пациент;
-		divElement.className = "slot";
-		containerBlock.appendChild(divElement);
+		divGrid = document.createElement("div");
+		divGrid.setAttribute("id", "id" + element.ИД);
+		divGrid.className = "slot-grid";		
+		divGrid.style =
+			`top: calc((var(--hourHeight) * ${element.ОтступВМинутах})/60 - var(--borderSize)); 
+			left: calc(${index} * var(--slotWidth) - var(--borderSize)); 
+			height: calc((var(--hourHeight) * ${element.Продолжительность})/60 + var(--borderSize));`;
 	}
+
+	divGrid.innerHTML = "";
+
+	if (element.Пациент != "") {
+
+		divSlot = document.createElement("div");
+		divSlot.className = "slot";
+		divSlot.innerHTML = element.Пациент;
+
+		divGrid.appendChild(divSlot);
+
+	}
+
+
+	divSlot = document.createElement("div");
+	divSlot.className = "slot-layer";
+
+	divGrid.appendChild(divSlot);
+	containerBlock.appendChild(divGrid);
 }
 
 draw();

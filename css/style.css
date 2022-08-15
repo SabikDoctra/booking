@@ -1,85 +1,190 @@
+:root {
+    --borderSize: 1px;
+    --leftWidth: 40px;
+    --topHeight: 100px;
+    --dateHeight: 40px;
+    --slotWidth: 200px;
+    --hourHeight: 100px;
+    --borderColor: #DFE1E6;
+    --selectionBorderColor: #2D8DCC;
+    --selectionAreaColor: #2D8DCC1A;
+    --selectionColor: #3BBEA51A;
+    --gridBackgroundColor: #F4F5F7;
+    --gridTextColor: #7A869A;
+    --topLeftBackgroundColor: #F4F5F7;
+    --slotHoverColor: #3BBEA50D;
+    --slotBooked: #D7F2ED;
+}
+
 html,
 body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-  overflow: visible;
+    overflow: visible;
 }
 
 .selection-area {
-  background: #4f90f22d;
-  border: 1px solid #4f90f2;
+    background: var(--selectionAreaColor);
+    border: var(--borderSize) solid var(--selectionBorderColor);
 }
 
 .div-table {
-  display: table;
-  width: 100%;
-  height: 100%;
+    display: table;
+    width: 100%;
+    height: 100%;
 }
 
 .div-row {
-  display: table-row;
+    display: table-row;
 }
 
 .div-cell {
-  display: table-cell;
-  margin: 0;
-  user-select: none;
-  -webkit-user-select: none;
-  position: relative;
+    display: table-cell;
+    margin: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
 }
 
 .leftcol {
-  width: 100px;
-  position: -webkit-sticky;
-  position: sticky;
-  left: 0;
+    width: var(--leftWidth);
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
 }
 
 .toprow {
-  height: 50px;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 10 !important;
+    height: var(--topHeight);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 10 !important;
 }
 
 .toprowleftcol {
-  background-color: #afeeff !important;
-  z-index: 10 !important;
+    background-color: var(--topLeftBackgroundColor) !important;
+    z-index: 10 !important;
+}
+
+.topleftblock {
+    height: calc(var(--topHeight) + var(--borderSize));
+    width: calc(var(--leftWidth) + var(--borderSize));
+    border: var(--borderSize) solid var(--borderColor);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .times {
-  z-index: 2 !important;
+    z-index: 2 !important;
 }
 
 .container {
-  z-index: 1 !important;
+    z-index: 1 !important;
+}
+
+.header {
+    position: absolute;
+    border: var(--borderSize) solid var(--borderColor);
+    background-color: var(--gridBackgroundColor) !important;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .doctor {
-  position: absolute;
-  border: 1px solid #4f90f2;
-  background-color: #afeeff !important;
+    top: var(--dateHeight);
+    height: calc(var(--topHeight) - var(--dateHeight) + var(--borderSize));
+    width: calc(var(--slotWidth) + var(--borderSize));
+    text-align: center;
+    font: normal normal bold 12px/15px Helvetica Neue LT GEO;
+    letter-spacing: 0px;
+    color: var(--gridTextColor);
+    opacity: 1;
+}
+
+.date {
+    top: 0;
+    height: calc(var(--dateHeight) + var(--borderSize));
+    text-align: center;
+    font: normal normal normal 12px/15px Helvetica Neue LT GEO;
+    letter-spacing: 0px;
+    color: var(--gridTextColor);
+    opacity: 1;
 }
 
 .time {
-  position: absolute;
-  border: 1px solid #4f90f2;
-  background-color: #afeeff !important;
+    text-align: center;
+    font: normal normal normal 10px/12px Helvetica Neue LT GEO;
+    letter-spacing: 0px;
+    color: var(--gridTextColor);
+    opacity: 1;
+    position: absolute;
+    border: var(--borderSize) solid var(--borderColor);
+    background-color: var(--gridBackgroundColor) !important;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    left: 0px;
+    width: calc(var(--leftWidth) + var(--borderSize));
+    height: calc(var(--hourHeight) + var(--borderSize));
+}
+
+.slot-grid {
+    position: absolute;
+    border: var(--borderSize) solid var(--borderColor);
+    cursor: pointer;
+    padding: 1px;
+    width: calc(var(--slotWidth) + var(--borderSize));
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .slot {
-  position: absolute;
-  border: 1px solid #4f90f2;
-  cursor: pointer;
-  background-color: #fff;
+    position: relative;
+    background-color: var(--slotBooked);
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-.slot.selected {
-  background: #aaccff;
+.slot-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.slot-layer:hover {
+    background-color: var(--slotHoverColor) !important;
+}
+
+.selected {    
+    border: 1px solid #3BBEA5;
+    z-index: 10;
+}
+
+
+.selected>.slot-layer,
+.selected>.slot-layer:hover {
+    background: var(--selectionColor) !important;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;    
 }
