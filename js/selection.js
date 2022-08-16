@@ -3,6 +3,8 @@ const selection = new SelectionArea({
 	boundaries: [".container"]
 });
 
+console.log(selection);
+
 selection.on('beforestart', (evt) => {
 	const allowedButtons = [1];
 	if (!evt.store.selected.includes(evt.event.target)&&!evt.store.selected.includes(evt.event.target.parentElement)) {
