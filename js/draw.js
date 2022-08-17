@@ -302,6 +302,7 @@ function sendEvent(eventName) {
 
 	selectedElements.forEach((element) => {
 		selectedCards.push(element.id.substring(2));
+		element.classList.remove("selected");
 	});
 
 	newEvent.doctra_event = {
@@ -312,6 +313,7 @@ function sendEvent(eventName) {
 		}),
 	};
 
+	selection.clearSelection();
 	console.log(newEvent.doctra_event);
 
 	return dispatchEvent(newEvent);
