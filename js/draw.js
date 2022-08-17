@@ -1,376 +1,53 @@
-let jsonData = {
-	redraw: true,
-	hourHeight: 200,
-	header: [
-		{
-			ИД: "0000256_20220808",
-			Врач: "ექიმი 1",
-			Подразделение: "Подразделение 1",
-			Дата: "8 აგვ 2022",
-		},
-		{
-			ИД: "0000257_20220808",
-			Врач: "ექიმი 2",
-			Подразделение: "Подразделение 2",
-			Дата: "8 აგვ 2022",
-		},
-		{
-			ИД: "0000256_20220809",
-			Врач: "ექიმი 1",
-			Подразделение: "Подразделение 1",
-			Дата: "9 აგვ 2022",
-		},
-		{
-			ИД: "0000257_20220809",
-			Врач: "ექიმი 2",
-			Подразделение: "Подразделение 2",
-			Дата: "9 აგვ 2022",
-		},
-		{
-			ИД: "0000256_20220809",
-			Врач: "ექიმი 1",
-			Подразделение: "Подразделение 1",
-			Дата: "10 აგვ 2022",
-		},
-		{
-			ИД: "0000257_20220809",
-			Врач: "ექიმი 2",
-			Подразделение: "Подразделение 2",
-			Дата: "10 აგვ 2022",
-		},
-		{
-			ИД: "0000256_20220809",
-			Врач: "ექიმი 1",
-			Подразделение: "Подразделение 1",
-			Дата: "11 აგვ 2022",
-		},
-		{
-			ИД: "0000257_20220809",
-			Врач: "ექიმი 2",
-			Подразделение: "Подразделение 2",
-			Дата: "11 აგვ 2022",
-		},
-		{
-			ИД: "0000256_20220809",
-			Врач: "ექიმი 1",
-			Подразделение: "Подразделение 1",
-			Дата: "12 აგვ 2022",
-		},
-		{
-			ИД: "0000257_20220809",
-			Врач: "ექიმი 2",
-			Подразделение: "Подразделение 2",
-			Дата: "12 აგვ 2022",
-		},
-		{
-			ИД: "0000256_20220809",
-			Врач: "ექიმი 1",
-			Подразделение: "Подразделение 1",
-			Дата: "13 აგვ 2022",
-		},
-		{
-			ИД: "0000257_20220809",
-			Врач: "ექიმი 2",
-			Подразделение: "Подразделение 2",
-			Дата: "13 აგვ 2022",
-		},
-		{
-			ИД: "0000256_20220809",
-			Врач: "ექიმი 1",
-			Подразделение: "Подразделение 1",
-			Дата: "14 აგვ 2022",
-		},
-		{
-			ИД: "0000257_20220809",
-			Врач: "ექიმი 2",
-			Подразделение: "Подразделение 2",
-			Дата: "14 აგვ 2022",
-		},
-	],
-	times: [
-		{
-			ИД: "1000",
-			Время: "10:00",
-		},
-		{
-			ИД: "1100",
-			Время: "11:00",
-		},
-		{
-			ИД: "1200",
-			Время: "12:00",
-		},
-		{
-			ИД: "1300",
-			Время: "13:00",
-		},
-		{
-			ИД: "1400",
-			Время: "14:00",
-		},
-		{
-			ИД: "1500",
-			Время: "15:00",
-		},
-	],
-	data: [
-		{
-			ИД: "0000257_202208081030",
-			ОтступВМинутах: 30,
-			ИДШапки: "0000257_20220808",
-			Продолжительность: 75,
-			Пациент: "",
-			Статус: "ГрафикОтменен",
-			Подсказка: "It's cancelled!",
-			Время: "10:30",
-		},
-		{
-			ИД: "0000257_202208081145",
-			ОтступВМинутах: 105,
-			ИДШапки: "0000257_20220808",
-			Продолжительность: 40,
-			Пациент: "გიორგი",
-			Статус: "Завершен",
-			Подсказка: "It's done!",
-			Время: "11:45",
-			ТипБрони: "Клиника",
-		},
-		{
-			ИД: "0000257_202208081040",
-			ОтступВМинутах: 40,
-			ИДШапки: "0000256_20220808",
-			Продолжительность: 40,
-			Пациент: "დათო",
-			ТипБрони: "ВизитДома",
-			Страховка: "TBCInsurance",
-			Статус: "Забронировано",
-			Подсказка: "It's booked!",
-			Время: "10:40",
-		},
-		{
-			ИД: "0000257_202208081235",
-			ОтступВМинутах: 155,
-			ИДШапки: "0000256_20220808",
-			Продолжительность: 40,
-			Пациент: "",
-			Статус: "Свободен",
-			Подсказка: "It's free!",
-			Время: "12:35",
-		},
-	],
-};
-
-let initData = {
-	statuses: [
-		{
-			name: "Забронировано",
-			backgroundColor: "#D7F2ED",
-			textColor: "#7A869A",
-		},
-		{
-			name: "Свободен",
-			backgroundColor: "#FFFFFF",
-			textColor: "#7A869A",
-		},
-		{
-			name: "ГрафикОтменен",
-			backgroundColor: "#F4F5F7",
-			textColor: "#7A869A",
-		},
-		{
-			name: "Пришел",
-			backgroundColor: "#67CCC5",
-			textColor: "#ffffff",
-		},
-		{
-			name: "НеПришел",
-			backgroundColor: "#DFE1E6",
-			textColor: "#ffffff",
-		},
-		{
-			name: "Завершен",
-			backgroundColor: "#2A5369",
-			textColor: "#ffffff",
-		},
-	],
-	bookingTypes: [
-		{
-			name: "Клиника",
-			image: "clinic.png",
-		},
-		{
-			name: "ВизитДома",
-			image: "home.png",
-		},
-		{
-			name: "Удаленный",
-			image: "distant.png",
-		},
-		{
-			name: "КлиникаИлиУдаленный",
-			image: "clinicordistant.png",
-		},
-		{
-			name: "Ковид",
-			image: "covid.png",
-		},
-	],
-	bookingInsurances: [
-		{
-			name: "TBCInsurance",
-			image: "tbc.png",
-		},
-		{
-			name: "Ardi",
-			image: "ardi.png",
-		},
-		{
-			name: "GPI",
-			image: "gpi.png",
-		},
-		{
-			name: "PSP",
-			image: "psp.png",
-		},
-		{
-			name: "ImediL",
-			image: "imedil.png",
-		},
-	],
-	commands: [
-		{
-			type: "command",
-			name: "booking",
-			caption: "დაჯავშნა",
-			tooltip: "მოცემულ სლოტზე დაჯავშნა",
-			icon: "booking.png",
-		},
-		{
-			type: "command",
-			name: "cancel_booking",
-			caption: "დაჯავშნის მოხსნა",
-			tooltip: "დაჯავშნის მოხსნა მოცემულ სლოტზე",
-			icon: "cancel_booking.png",
-		},
-		{
-			type: "separator",
-			icon: "separator.png",
-		},
-		{
-			type: "command",
-			name: "arrived",
-			caption: "გამოცხადდა",
-			tooltip: "პაციენტი გამოცხადდა",
-			icon: "arrived.png",
-		},
-		{
-			type: "command",
-			name: "not_arrived",
-			caption: "არ გამოცხადდა",
-			tooltip: "პაციენტი არ გამოცხადდა",
-			icon: "not_arrived.png",
-		},
-		{
-			type: "command",
-			name: "finished",
-			caption: "დასრულდა",
-			tooltip: "ვიზიტი დასრულდა",
-			icon: "finished.png",
-		},
-		{
-			type: "command",
-			name: "pick",
-			caption: "არჩევა",
-			tooltip: "ჯავშნის არჩევა",
-			icon: "pick.png",
-		},
-		{
-			type: "command",
-			name: "paste",
-			caption: "ჩასმა",
-			tooltip: "არჩეული ჯავშნის ჩასმა მოცემულ სლოტზე",
-			icon: "paste",
-		},
-		{
-			type: "command",
-			name: "edit_brigade",
-			caption: "ბრიგადის რედაქტირება",
-			tooltip: "არჩეული ბრიგადის რედაქტირება",
-			icon: "edit_brigade.png",
-		},
-		{
-			type: "command",
-			name: "booking_history",
-			caption: "ჯავშნის ისტორია",
-			tooltip: "მოცემულ სლოტზე დაჯავშნების ისტორიის გახსნა",
-			icon: "booking_history.png",
-		},
-		{
-			type: "command",
-			name: "cancel_schedule",
-			caption: "გრაფიკის გაუქმება",
-			tooltip: "მოცემულ სლოტზე გრაფიკის გაუქმება",
-			icon: "cancel_schedule.png",
-		},
-		{
-			type: "command",
-			name: "restore_schedule",
-			caption: "გრაფიკის აღდგენა",
-			tooltip: "მოცემულ სლოტზე გრაფიკის აღდგენა",
-			icon: "restore_schedule.png",
-		},
-		{
-			type: "command",
-			name: "add_schedule",
-			caption: "გრაფიკის დანიშვნა",
-			tooltip: "მოცემულ სლოტზე გრაფიკის გაწერა",
-			icon: "add_schedule.png",
-		},
-	],
-};
-
-/*let jsonData = {
-	"redraw": false,
-	"data": [
-		{
-			"ИД": "0000257_202208081030",
-			"ОтступВМинутах": 30,
-			"ИДШапки": "0000257_20220808",
-			"Продолжительность": 75,
-			"Пациент": "Вася 46"
-		}
-	]
-}*/
-
 const headerBlock = document.querySelector("#header");
 const timesBlock = document.querySelector("#times");
 const containerBlock = document.querySelector("#container");
 const cssRoot = document.querySelector(":root");
-
-if (jsonData.hasOwnProperty("hourHeight")) {
-	cssRoot.style.setProperty(`--hourHeight`, `${jsonData.hourHeight}px`);
-}
-if (jsonData.hasOwnProperty("styles")) {
-	jsonData.styles.forEach((element) =>
-		cssRoot.style.setProperty(`--${element.name}`, element.value)
-	);
-}
-if (initData.hasOwnProperty("statuses")) {
-	initData.statuses.forEach((element) => addClass(element));
-}
-if (initData.hasOwnProperty("bookingTypes")) {
-	initData.bookingTypes.forEach((element) => addClass(element));
-}
-if (initData.hasOwnProperty("bookingInsurances")) {
-	initData.bookingInsurances.forEach((element) => addClass(element));
-}
-
 let curDateBlock;
-let curDate = "";
-let curDateLength = 0;
-let totalDateLength = 0;
+let curDate;
+let curDateLength;
+let totalDateLength;
 
-function draw() {
+function doctra_call(functionName, data) {
+	switch (functionName) {
+		case "update_cells":
+			update_cells(data);
+			break;
+		case "init":
+			init(data);
+			break;
+		default:
+			break;
+	}
+}
+
+function update_cells(jsonString) {
+	jsonData = JSON.parse(jsonString);
+	if (jsonData.hasOwnProperty("hourHeight")) {
+		cssRoot.style.setProperty(`--hourHeight`, `${jsonData.hourHeight}px`);
+	}
+	if (jsonData.hasOwnProperty("styles")) {
+		jsonData.styles.forEach((element) =>
+			cssRoot.style.setProperty(`--${element.name}`, element.value)
+		);
+	}
+	draw(jsonData);
+}
+
+function init(jsonString) {
+	initData = JSON.parse(jsonString);
+	if (initData.hasOwnProperty("statuses")) {
+		initData.statuses.forEach((element) => addClass(element));
+	}
+	if (initData.hasOwnProperty("bookingTypes")) {
+		initData.bookingTypes.forEach((element) => addClass(element));
+	}
+	if (initData.hasOwnProperty("bookingInsurances")) {
+		initData.bookingInsurances.forEach((element) => addClass(element));
+	}
+	init_commands(initData);
+}
+
+function draw(jsonData) {
 	if (jsonData.redraw) {
 		curDate = "";
 		curDateBlock = "";
@@ -397,6 +74,16 @@ function draw() {
 	} else {
 		jsonData.data.forEach((element) => drawSlots(element, !jsonData.redraw));
 	}
+	elements = document.getElementsByClassName("slot-layer");
+	Array.from(elements).forEach(function (element) {
+		element.addEventListener("contextmenu", function (evt) {
+			hideContextMenu(contextMenu, evt);
+			if (evt.target.getAttribute("contextMenuElement") == null) {
+				showContextMenu(contextMenu, evt);
+			}
+			evt.preventDefault();
+		});
+	});
 }
 
 function drawHeader(element, index) {
@@ -502,6 +189,7 @@ function drawSlots(element, findElement) {
 
 	divSlot = document.createElement("div");
 	divSlot.className = `slot-layer`;
+	divSlot.setAttribute("slot", true);
 	if (element.hasOwnProperty("Подсказка")) {
 		divSlot.setAttribute("title", element.Подсказка);
 	}
@@ -595,24 +283,173 @@ function createCSSSelector(selector, style) {
 	}
 }
 
-draw();
+function readTextFile(file, callback) {
+	var rawFile = new XMLHttpRequest();
+	rawFile.overrideMimeType("application/json");
+	rawFile.open("GET", file, true);
+	rawFile.onreadystatechange = function () {
+		if (rawFile.readyState === 4 && rawFile.status == "200") {
+			callback(rawFile.responseText);
+		}
+	};
+	rawFile.send(null);
+}
 
-window.addEventListener("scroll", function(e) { 
-	let stickyDates = document.getElementsByClassName('date-sticky');
-	
+function sendEvent(eventName) {
+	let newEvent = new MouseEvent("click");
+	let selectedCards = new Array();
+	let selectedElements = selection.getSelection();
+
+	selectedElements.forEach((element) => {
+		selectedCards.push(element.id.substring(2));
+	});
+
+	newEvent.doctra_event = {
+		event_name: "command",
+		data: JSON.stringify({
+			command_name: eventName,
+			cells: selectedCards,
+		}),
+	};
+
+	console.log(newEvent.doctra_event);
+
+	return dispatchEvent(newEvent);
+}
+
+function init_commands(initData) {
+	contextMenuOld = document.getElementById("contextMenu");
+	if (contextMenuOld) {
+		contextMenuOld.outerHTML = "";
+	}
+
+	let contextMenu = document.createElement("div");
+	contextMenu.id = "contextMenu";
+	contextMenu.className = "contextMenuHiden";
+	contextMenu.setAttribute("contextMenuElement", true);
+	document.body.appendChild(contextMenu);
+
+	initData.commands.forEach((element) => {
+		let menuOption = document.createElement("div");
+		menuOption.optionType = element.type;
+		menuOption.setAttribute("contextMenuElement", true);
+		switch (element.type) {
+			case "command":
+				menuOption.functionName = element.name;
+				menuOption.title = element.tooltip;
+				menuOption.className = "menuItem";
+				menuOption.addEventListener("click", contextMenuElementClick);
+				menuOption.addEventListener("contextmenu", contextMenuElementClick);
+
+				let menuimg = document.createElement("img");
+				menuimg.src = "images/" + element.icon.replace("png", "svg");
+				menuOption.appendChild(menuimg);
+
+				let menuText = document.createElement("span");
+				menuText.innerHTML = element.caption;
+				menuOption.appendChild(menuText);
+				break;
+			case "separator":
+				menuOption.className = "separator";
+				break;
+
+			default:
+				break;
+		}
+		contextMenu.appendChild(menuOption);
+	});
+}
+
+function contextMenuElementClick(event) {
+	if (event.target.parentNode.functionName) {
+		sendEvent(event.target.parentNode.functionName);
+	} else {
+		sendEvent(event.target.functionName);
+	}
+	hideContextMenu(contextMenu, event);
+	event.preventDefault();
+}
+
+function showContextMenu(contextMenuObject, e) {
+	contextMenuObject.classList.remove("contextMenuHiden");
+
+	coords = setContextMenuPostion(e, contextMenuObject);
+
+	contextMenuObject.style.left = coords.x + "px";
+	contextMenuObject.style.top = coords.y + "px";
+}
+
+function setContextMenuPostion(event, contextMenu) {
+	var mousePosition = {};
+	var menuPostion = {};
+	var menuDimension = {};
+
+	menuDimension.x = contextMenu.offsetWidth;
+	menuDimension.y = contextMenu.offsetHeight;
+	mousePosition.x = event.pageX;
+	mousePosition.y = event.pageY;
+
+	if (
+		mousePosition.x + menuDimension.x >
+			document.body.offsetWidth + window.scrollX &&
+		mousePosition.x - menuDimension.x >= 0
+	) {
+		menuPostion.x = mousePosition.x - menuDimension.x;
+	} else {
+		menuPostion.x = mousePosition.x;
+	}
+
+	if (
+		mousePosition.y + menuDimension.y >
+			document.body.offsetHeight + window.scrollY &&
+		mousePosition.y - menuDimension.y >= 0
+	) {
+		menuPostion.y = mousePosition.y - menuDimension.y;
+	} else {
+		menuPostion.y = mousePosition.y;
+	}
+
+	return menuPostion;
+}
+
+function hideContextMenu(contextMenuObject, e) {
+	contextMenuObject.classList.add("contextMenuHiden");
+}
+
+window.addEventListener("scroll", function (e) {
+	let stickyDates = document.getElementsByClassName("date-sticky");
+
 	Array.from(stickyDates).forEach((element) => {
 		let scrollLeft = window.scrollX;
 		let parentLeft = element.parentElement.offsetLeft;
 		let parentWidth = element.parentElement.offsetWidth - 20;
 		let elementWidth = element.offsetWidth;
-		if( (parentWidth-elementWidth) > (scrollLeft-parentLeft) && parentLeft < scrollLeft )
-		{
-			element.style = `left: ${(scrollLeft-parentLeft)}px`;
-			console.log(`left: ${(scrollLeft-parentLeft)}px`);
-		}
-		else if(scrollLeft <= parentLeft)
-		{
+		if (
+			parentWidth - elementWidth > scrollLeft - parentLeft &&
+			parentLeft < scrollLeft
+		) {
+			element.style = `left: ${scrollLeft - parentLeft}px`;
+		} else if (scrollLeft <= parentLeft) {
 			element.style = `left: 0px`;
-		};
+		}
 	});
+});
+
+divtable.addEventListener("contextmenu", function (evt) {
+	if (evt.target.getAttribute("slot") == null) {
+		hideContextMenu(contextMenu, evt);
+		evt.preventDefault();
+	}
+});
+
+divtable.addEventListener("mousedown", function (evt) {
+	hideContextMenu(contextMenu, evt);
+});
+
+readTextFile("js/init.json", function (text) {
+	doctra_call("init", text);
+});
+
+readTextFile("js/update_cells.json", function (text) {
+	doctra_call("update_cells", text);
 });

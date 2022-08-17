@@ -163,7 +163,7 @@ html {
 	color: var(--gridTextColor);
 	opacity: 1;
 	display: flex;
-	align-items: center; 
+	align-items: center;
 	padding-left: 10px;
 	padding-right: 10px;
 }
@@ -298,5 +298,54 @@ html {
 
 .date-sticky {
 	position: relative;
-    transition: all 0.2s ease 0s;
+	transition: all 0.2s ease 0s;
+}
+
+.contextMenuHiden {
+	display: none;
+}
+
+.contextMenuVisible {
+	display: block;
+}
+
+.menuItem {
+	display: flex;
+	height: 30px;
+	align-items: center;
+}
+
+.menuItem > img {
+	margin-left: 13px;
+	margin-right: 10px;
+}
+
+#contextMenu {
+	z-index: 100;
+	position: absolute;
+	background-color: white;
+	border-radius: 4px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	width: 250px;
+	font-size: 14px;
+	box-shadow: 5px 5px 8px darkgrey;
+}
+
+#contextMenu div:not(.separator):hover {
+	cursor: pointer;
+	background-image: linear-gradient(to right, #3bbea5 2px, #f4f5f7 2px);
+}
+
+#contextMenu .separator {
+	background-color: darkgrey;
+	height: 1px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.menuItem > span {
+	margin-right: 13px;
+	white-space: nowrap;
+	color: var(--gridTextColor);
 }
