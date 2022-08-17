@@ -237,6 +237,96 @@ let initData = {
 			image: "imedil.png",
 		},
 	],
+	commands: [
+		{
+			type: "command",
+			name: "booking",
+			caption: "დაჯავშნა",
+			tooltip: "მოცემულ სლოტზე დაჯავშნა",
+			icon: "booking.png",
+		},
+		{
+			type: "command",
+			name: "cancel_booking",
+			caption: "დაჯავშნის მოხსნა",
+			tooltip: "დაჯავშნის მოხსნა მოცემულ სლოტზე",
+			icon: "cancel_booking.png",
+		},
+		{
+			type: "separator",
+			icon: "separator.png",
+		},
+		{
+			type: "command",
+			name: "arrived",
+			caption: "გამოცხადდა",
+			tooltip: "პაციენტი გამოცხადდა",
+			icon: "arrived.png",
+		},
+		{
+			type: "command",
+			name: "not_arrived",
+			caption: "არ გამოცხადდა",
+			tooltip: "პაციენტი არ გამოცხადდა",
+			icon: "not_arrived.png",
+		},
+		{
+			type: "command",
+			name: "finished",
+			caption: "დასრულდა",
+			tooltip: "ვიზიტი დასრულდა",
+			icon: "finished.png",
+		},
+		{
+			type: "command",
+			name: "pick",
+			caption: "არჩევა",
+			tooltip: "ჯავშნის არჩევა",
+			icon: "pick.png",
+		},
+		{
+			type: "command",
+			name: "paste",
+			caption: "ჩასმა",
+			tooltip: "არჩეული ჯავშნის ჩასმა მოცემულ სლოტზე",
+			icon: "paste",
+		},
+		{
+			type: "command",
+			name: "edit_brigade",
+			caption: "ბრიგადის რედაქტირება",
+			tooltip: "არჩეული ბრიგადის რედაქტირება",
+			icon: "edit_brigade.png",
+		},
+		{
+			type: "command",
+			name: "booking_history",
+			caption: "ჯავშნის ისტორია",
+			tooltip: "მოცემულ სლოტზე დაჯავშნების ისტორიის გახსნა",
+			icon: "booking_history.png",
+		},
+		{
+			type: "command",
+			name: "cancel_schedule",
+			caption: "გრაფიკის გაუქმება",
+			tooltip: "მოცემულ სლოტზე გრაფიკის გაუქმება",
+			icon: "cancel_schedule.png",
+		},
+		{
+			type: "command",
+			name: "restore_schedule",
+			caption: "გრაფიკის აღდგენა",
+			tooltip: "მოცემულ სლოტზე გრაფიკის აღდგენა",
+			icon: "restore_schedule.png",
+		},
+		{
+			type: "command",
+			name: "add_schedule",
+			caption: "გრაფიკის დანიშვნა",
+			tooltip: "მოცემულ სლოტზე გრაფიკის გაწერა",
+			icon: "add_schedule.png",
+		},
+	],
 };
 
 /*let jsonData = {
@@ -312,8 +402,8 @@ function draw() {
 function drawHeader(element, index) {
 	if (curDateBlock == "") {
 		curDateBlock = document.createElement("div");
-		curDateBlock.innerHTML = element.Дата;
-		curDateBlock.className = "header date";
+		curDateBlock.innerHTML = `<span class="date-sticky">${element.Дата}</span>`;
+		curDateBlock.className = `header date`;
 	}
 	if (curDate != "" && curDate != element.Дата) {
 		curDateBlock.style = `left: calc(${totalDateLength} * var(--slotWidth) - var(--borderSize)); 
@@ -329,9 +419,16 @@ function drawHeader(element, index) {
 
 	divElement = document.createElement("div");
 	divElement.innerHTML = `${element.Врач}`;
-	divElement.className = "header doctor";
+	divElement.className = `header doctor`;
 	divElement.setAttribute("id", `id${element.ИД}`);
 	divElement.setAttribute("index", index);
+	divElement.style = `left: calc(${index} * var(--slotWidth) - var(--borderSize));`;
+
+	headerBlock.appendChild(divElement);
+
+	divElement = document.createElement("div");
+	divElement.innerHTML = `${element.Подразделение}`;
+	divElement.className = `header department`;
 	divElement.style = `left: calc(${index} * var(--slotWidth) - var(--borderSize));`;
 
 	headerBlock.appendChild(divElement);
@@ -339,8 +436,8 @@ function drawHeader(element, index) {
 
 function drawTimes(element, index) {
 	divElement = document.createElement("div");
-	divElement.innerHTML = element.Время;
-	divElement.className = "time";
+	divElement.innerHTML = `${element.Время}`;
+	divElement.className = `time`;
 	divElement.setAttribute("id", "id" + element.ИД);
 	divElement.setAttribute("index", index);
 	divElement.style = `top: calc(${index} * var(--hourHeight) - var(--borderSize));`;
@@ -351,13 +448,13 @@ function drawTimes(element, index) {
 function drawSlots(element, findElement) {
 	if (findElement) {
 		divGrid = document.querySelector(`#id${element.ИД}`);
-		divGrid.className = "slot-grid";
+		divGrid.className = `slot-grid`;
 	} else {
 		doctorBlock = document.querySelector(`#id${element.ИДШапки}`);
 		index = doctorBlock.getAttribute("index");
 		divGrid = document.createElement("div");
 		divGrid.setAttribute("id", `id${element.ИД}`);
-		divGrid.className = "slot-grid";
+		divGrid.className = `slot-grid`;
 		divGrid.style = `top: calc((var(--hourHeight) * ${element.ОтступВМинутах})/60 - var(--borderSize)); 
 			left: calc(${index} * var(--slotWidth) - var(--borderSize)); 
 			height: calc((var(--hourHeight) * ${element.Продолжительность})/60 + var(--borderSize));`;
@@ -366,29 +463,45 @@ function drawSlots(element, findElement) {
 	divGrid.innerHTML = "";
 
 	divSlot = document.createElement("div");
-	divSlot.className = "slot";
-	if (element.hasOwnProperty("ИдентификаторСтатуса")) {
+	divSlot.className = `slot`;
+	if (
+		element.hasOwnProperty("ИдентификаторСтатуса") &&
+		element.ИдентификаторСтатуса
+	) {
 		divSlot.className += ` slot-${element.ИдентификаторСтатуса}`;
 	}
-	if (element.hasOwnProperty("Статус")) {
+	if (element.hasOwnProperty("Статус") && element.Статус) {
 		divSlot.className += ` json-${element.Статус}`;
 	}
-	divSlot.innerHTML = `<div class="slot-time">${element.Время}</div>`;
-
-	if (element.Пациент) {
-		if (element.hasOwnProperty("ТипБрони")) {
-			divSlot.innerHTML += `<div class="slot-type json-${element.ТипБрони}">&nbsp;</div>`;
-		}
-		if (element.hasOwnProperty("Страховка")) {
-			divSlot.innerHTML += `<div class="slot-insurance json-${element.Страховка}">&nbsp;</div>`;
-		}
-		divSlot.innerHTML += `<div class="slot-patient">${element.Пациент}</div>`;
+	if (element.hasOwnProperty("Время") && element.Время) {
+		divSlotDetails = document.createElement("div");
+		divSlotDetails.className = `slot-time`;
+		divSlotDetails.innerHTML = `${element.Время}`;
+		divSlot.appendChild(divSlotDetails);
+	}
+	if (element.hasOwnProperty("ТипБрони") && element.ТипБрони) {
+		divSlotDetails = document.createElement("div");
+		divSlotDetails.className = `slot-type json-${element.ТипБрони}`;
+		divSlotDetails.innerHTML = `&nbsp;`;
+		divSlot.appendChild(divSlotDetails);
+	}
+	if (element.hasOwnProperty("Страховка") && element.Страховка) {
+		divSlotDetails = document.createElement("div");
+		divSlotDetails.className = `slot-insurance json-${element.Страховка}`;
+		divSlotDetails.innerHTML = `&nbsp;`;
+		divSlot.appendChild(divSlotDetails);
+	}
+	if (element.hasOwnProperty("Пациент") && element.Пациент) {
+		divSlotDetails = document.createElement("div");
+		divSlotDetails.className = `slot-patient`;
+		divSlotDetails.innerHTML = `${element.Пациент}`;
+		divSlot.appendChild(divSlotDetails);
 	}
 
 	divGrid.appendChild(divSlot);
 
 	divSlot = document.createElement("div");
-	divSlot.className = "slot-layer";
+	divSlot.className = `slot-layer`;
 	if (element.hasOwnProperty("Подсказка")) {
 		divSlot.setAttribute("title", element.Подсказка);
 	}
@@ -408,7 +521,6 @@ function addClass(element) {
 	if (element.hasOwnProperty("image")) {
 		style += `background-image: url('../images/${element.image}') !important;`;
 	}
-	console.log(style);
 	createCSSSelector(`.json-${element.name}`, style);
 }
 
@@ -484,3 +596,23 @@ function createCSSSelector(selector, style) {
 }
 
 draw();
+
+window.addEventListener("scroll", function(e) { 
+	let stickyDates = document.getElementsByClassName('date-sticky');
+	
+	Array.from(stickyDates).forEach((element) => {
+		let scrollLeft = window.scrollX;
+		let parentLeft = element.parentElement.offsetLeft;
+		let parentWidth = element.parentElement.offsetWidth - 20;
+		let elementWidth = element.offsetWidth;
+		if( (parentWidth-elementWidth) > (scrollLeft-parentLeft) && parentLeft < scrollLeft )
+		{
+			element.style = `left: ${(scrollLeft-parentLeft)}px`;
+			console.log(`left: ${(scrollLeft-parentLeft)}px`);
+		}
+		else if(scrollLeft <= parentLeft)
+		{
+			element.style = `left: 0px`;
+		};
+	});
+});
