@@ -54,6 +54,10 @@ function draw(jsonData) {
 		curDateLength = 0;
 		totalDateLength = 0;
 
+		headerBlock.innerHTML = "";
+		timesBlock.innerHTML = "";
+		containerBlock.innerHTML = "";
+		
 		cssRoot.style.setProperty(
 			`--divTableWidth`,
 			`calc(${jsonData.header.length} * var(--slotWidth) + var(--leftWidth))`
