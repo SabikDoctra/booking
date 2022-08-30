@@ -37,6 +37,7 @@ function init(jsonString) {
 	initData = JSON.parse(jsonString);
 	if (initData.hasOwnProperty("statuses")) {
 		initData.statuses.forEach((element) => addClass(element));
+		initData.statuses.forEach((element) => addClass(element, true));
 	}
 	if (initData.hasOwnProperty("bookingTypes")) {
 		initData.bookingTypes.forEach((element) => addClass(element));
@@ -164,6 +165,9 @@ function drawSlots(element, findElement) {
 	if (element.hasOwnProperty("Статус") && element.Статус) {
 		divSlot.className += ` json-${element.Статус}`;
 	}
+	if (element.hasOwnProperty("Выделение") && element.Выделение) {
+		divSlot.className += ` json-${element.Статус}-highlighted`;
+	}
 	if (element.hasOwnProperty("Время") && element.Время) {
 		divSlotDetails = document.createElement("div");
 		divSlotDetails.className = `slot-time`;
@@ -202,18 +206,29 @@ function drawSlots(element, findElement) {
 	containerBlock.appendChild(divGrid);
 }
 
-function addClass(element) {
+function addClass(element, highlightClass = false) {
 	style = "";
-	if (element.hasOwnProperty("backgroundColor")) {
-		style += `background-color: ${element.backgroundColor} !important;`;
+	if(highlightClass) {
+		if (element.hasOwnProperty("highlightColor") && element.highlightColor) {
+			style += `border-left: 4px solid ${element.highlightColor} !important;`;
+			style += `border-top-left-radius: 0px !important;`;
+			style += `border-bottom-left-radius: 0px !important;`;
+		}
+	} else {
+		if (element.hasOwnProperty("backgroundColor") && element.backgroundColor) {
+			style += `background-color: ${element.backgroundColor} !important;`;
+		}
+		if (element.hasOwnProperty("textColor") && element.textColor) {
+			style += `color: ${element.textColor} !important;`;
+		}
+		if (element.hasOwnProperty("image") && element.image) {
+			style += `background-image: url('../images/${element.image}') !important;`;
+		}	
 	}
-	if (element.hasOwnProperty("textColor")) {
-		style += `color: ${element.textColor} !important;`;
+	if(highlightClass&&style == "") {
+		return;
 	}
-	if (element.hasOwnProperty("image")) {
-		style += `background-image: url('../images/${element.image}') !important;`;
-	}
-	createCSSSelector(`.json-${element.name}`, style);
+	createCSSSelector(`.json-${element.name+(highlightClass?"-highlighted":"")}`, style);
 }
 
 function createCSSSelector(selector, style) {
@@ -452,10 +467,10 @@ divtable.addEventListener("mousedown", function (evt) {
 	hideContextMenu(contextMenu, evt);
 });
 
-/*readTextFile("js/init.json", function (text) {
+readTextFile("js/init.json", function (text) {
 	doctra_call("init", text);
 });
 
 readTextFile("js/update_cells.json", function (text) {
 	doctra_call("update_cells", text);
-});*/
+});
