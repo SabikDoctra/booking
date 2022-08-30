@@ -88,6 +88,9 @@ function draw(jsonData) {
 			}
 			evt.preventDefault();
 		});
+		element.addEventListener("dblclick", function(evt) {
+			sendEvent("doubleclick", [evt.target.parentNode]);
+		})
 	});
 }
 
@@ -314,11 +317,10 @@ function readTextFile(file, callback) {
 	rawFile.send(null);
 }
 
-function sendEvent(eventName) {
+function sendEvent(eventName, selectedElements) {
 	let newEvent = new MouseEvent("click");
 	let selectedCards = new Array();
-	let selectedElements = selection.getSelection();
-
+	
 	selectedElements.forEach((element) => {
 		selectedCards.push(element.id.substring(2));
 		element.classList.remove("selected");
@@ -383,9 +385,9 @@ function init_commands(initData) {
 
 function contextMenuElementClick(event) {
 	if (event.target.parentNode.functionName) {
-		sendEvent(event.target.parentNode.functionName);
+		sendEvent(event.target.parentNode.functionName, selection.getSelection());
 	} else {
-		sendEvent(event.target.functionName);
+		sendEvent(event.target.functionName, selection.getSelection());
 	}
 	hideContextMenu(contextMenu, event);
 	event.preventDefault();
@@ -467,10 +469,10 @@ divtable.addEventListener("mousedown", function (evt) {
 	hideContextMenu(contextMenu, evt);
 });
 
-readTextFile("js/init.json", function (text) {
-	doctra_call("init", text);
-});
+// readTextFile("js/init.json", function (text) {
+// 	doctra_call("init", text);
+// });
 
-readTextFile("js/update_cells.json", function (text) {
-	doctra_call("update_cells", text);
-});
+// readTextFile("js/update_cells.json", function (text) {
+// 	doctra_call("update_cells", text);
+// });
