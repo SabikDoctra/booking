@@ -68,10 +68,12 @@ function draw(jsonData) {
 			`calc(${jsonData.times.length} * var(--hourHeight) + var(--topHeight))`
 		);
 
+		console.log(jsonData.header);
 		jsonData.header.forEach((element, index) => drawHeader(element, index));
 		curDateBlock.style = `left: calc(${totalDateLength} * var(--slotWidth) - var(--borderSize)); 
 			width: calc(${curDateLength} * var(--slotWidth) + var(--borderSize));`;
 
+		console.log(curDateBlock);
 		headerBlock.appendChild(curDateBlock);
 
 		jsonData.times.forEach((element, index) => drawTimes(element, index));
@@ -95,19 +97,18 @@ function draw(jsonData) {
 }
 
 function drawHeader(element, index) {
-	if (curDateBlock == "") {
-		curDateBlock = document.createElement("div");
-		curDateBlock.innerHTML = `<span class="date-sticky">${element.Дата}</span>`;
-		curDateBlock.className = `header date`;
-	}
 	if (curDate != "" && curDate != element.Дата) {
 		curDateBlock.style = `left: calc(${totalDateLength} * var(--slotWidth) - var(--borderSize)); 
 			width: calc(${curDateLength} * var(--slotWidth) + var(--borderSize));`;
-
 		headerBlock.appendChild(curDateBlock);
 		curDateBlock = "";
 		totalDateLength = totalDateLength + curDateLength;
 		curDateLength = 0;
+	}
+	if (curDateBlock == "") {
+		curDateBlock = document.createElement("div");
+		curDateBlock.innerHTML = `<span class="date-sticky">${element.Дата}</span>`;
+		curDateBlock.className = `header date`;
 	}
 	curDateLength++;
 	curDate = element.Дата;
