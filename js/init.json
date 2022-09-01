@@ -2,14 +2,14 @@
 	"statuses": [
 		{
 			"name": "СтатусыБукинга_Пришел",
-			"backgroundColor": "",
-			"textColor": "",
+			"backgroundColor": "#1CB1D3",
+			"textColor": "#0000FF",
 			"highlightColor": ""
 		},
 		{
 			"name": "СтатусыБукинга_Подтвержден",
-			"backgroundColor": "",
-			"textColor": "",
+			"backgroundColor": "#CA7AFF",
+			"textColor": "#0000FF",
 			"highlightColor": ""
 		},
 		{
@@ -22,24 +22,24 @@
 			"name": "СтатусыБукинга_Свободный",
 			"backgroundColor": "",
 			"textColor": "",
-			"highlightColor": "#ff0000"
+			"highlightColor": ""
 		},
 		{
 			"name": "СтатусыБукинга_Завершен",
-			"backgroundColor": "",
-			"textColor": "",
+			"backgroundColor": "#49CA28",
+			"textColor": "#0000FF",
 			"highlightColor": ""
 		},
 		{
 			"name": "СтатусыБукинга_ГрафикОтменен",
-			"backgroundColor": "",
-			"textColor": "",
-			"highlightColor": ""
+			"backgroundColor": "#F7E6FF",
+			"textColor": "#0000FF",
+			"highlightColor": "#0000FF"
 		},
 		{
 			"name": "СтатусыБукинга_НеПришел",
-			"backgroundColor": "",
-			"textColor": "",
+			"backgroundColor": "#838C91",
+			"textColor": "#0000FF",
 			"highlightColor": ""
 		},
 		{
@@ -50,22 +50,23 @@
 		},
 		{
 			"name": "СтатусыБукинга_БезГрафика",
-			"backgroundColor": "",
-			"textColor": "",
-			"highlightColor": ""
+			"backgroundColor": "#979899",
+			"textColor": "#C9FFF8",
+			"highlightColor": "#0000FF"
 		},
 		{
 			"name": "СтатусыБукинга_Бронирован",
-			"backgroundColor": "#26FF60",
+			"backgroundColor": "#35AF9F",
 			"textColor": "#0000FF",
-			"highlightColor": "#FF0000"
+			"highlightColor": ""
 		}
 	],
 	"bookingTypes": [
 		{ "name": "Клиника", "image": "slot_type_clinic.png" },
 		{ "name": "ВызовНаДом", "image": "slot_type_home.png" },
 		{ "name": "Телефон", "image": "slot_type_tel.png" },
-		{ "name": "Видео", "image": "slot_type_video.png" }
+		{ "name": "Видео", "image": "slot_type_video.png" },
+		{ "name": "КлиникаИлиУдаленный", "image": "slot_type_clinicortel.png" }
 	],
 	"bookingInsurances": [
 		{ "name": "TBCInsurance", "image": "tbc.png" },
