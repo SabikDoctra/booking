@@ -148,6 +148,10 @@ function drawSlots(element, findElement) {
 	if (findElement) {
 		divGrid = document.querySelector(`#id${element.ИД}`);
 		divGrid.className = `slot-grid`;
+		if(element.hasOwnProperty("Удалять") && element.Удалять) {
+			divGrid.outerHTML = "";
+			return;
+		}
 	} else {
 		divGrid = document.createElement("div");
 		divGrid.setAttribute("id", `id${element.ИД}`);
