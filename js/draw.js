@@ -90,9 +90,12 @@ function draw(jsonData) {
 			}
 			evt.preventDefault();
 		});
+		element.addEventListener("click", function(evt) {
+			sendEvent("click", [evt.target.parentNode]);
+		});
 		element.addEventListener("dblclick", function(evt) {
 			sendEvent("doubleclick", [evt.target.parentNode]);
-		})
+		});
 	});
 }
 
