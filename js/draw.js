@@ -481,10 +481,10 @@ divtable.addEventListener("mousedown", function (evt) {
 	hideContextMenu(contextMenu, evt);
 });
 
-readTextFile("js/init.json", function (text) {
-	doctra_call("init", text);
-});
+// readTextFile("js/init.json", function (text) {
+// 	doctra_call("init", text);
+// });
 
-readTextFile("js/update_cells.json", function (text) {
-	doctra_call("update_cells", text);
-});
+// readTextFile("js/update_cells.json", function (text) {
+// 	doctra_call("update_cells", text);
+// });
