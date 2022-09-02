@@ -154,10 +154,10 @@ function drawSlots(element, findElement) {
 		divGrid = document.createElement("div");
 		divGrid.setAttribute("id", `id${element.ИД}`);
 		divGrid.className = `slot-grid`;
-		divGrid.style = `top: calc((var(--hourHeight) * ${element.ОтступВМинутах})/60 - var(--borderSize)); 
-			left: calc(${index} * var(--slotWidth) - var(--borderSize)); 
-			height: calc((var(--hourHeight) * ${element.Продолжительность})/60 + var(--borderSize));`;
 	}
+	divGrid.style = `top: calc((var(--hourHeight) * ${element.ОтступВМинутах})/60 - var(--borderSize)); 
+		left: calc(${index} * var(--slotWidth) - var(--borderSize)); 
+		height: calc((var(--hourHeight) * ${element.Продолжительность})/60 + var(--borderSize));`;
 
 	divGrid.innerHTML = "";
 
