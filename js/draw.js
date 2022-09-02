@@ -327,7 +327,9 @@ function sendEvent(eventName, selectedElements, clearSelection = true) {
 	
 	selectedElements.forEach((element) => {
 		selectedCards.push(element.id.substring(2));
-		element.classList.remove("selected");
+		if(clearSelection) {
+			element.classList.remove("selected");
+		}		
 	});
 
 	newEvent.doctra_event = {
@@ -475,10 +477,10 @@ divtable.addEventListener("mousedown", function (evt) {
 	hideContextMenu(contextMenu, evt);
 });
 
-// readTextFile("js/init.json", function (text) {
-// 	doctra_call("init", text);
-// });
+readTextFile("js/init.json", function (text) {
+	doctra_call("init", text);
+});
 
-// readTextFile("js/update_cells.json", function (text) {
-// 	doctra_call("update_cells", text);
-// });
+readTextFile("js/update_cells.json", function (text) {
+	doctra_call("update_cells", text);
+});

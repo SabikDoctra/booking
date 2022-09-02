@@ -1,79 +1,82 @@
 {
 	"statuses": [
 		{
-			"name": "СтатусыБукинга_Пришел",
-			"backgroundColor": "#1CB1D3",
-			"textColor": "#0000FF",
-			"highlightColor": ""
+			"name": "Забронировано",
+			"backgroundColor": "#D7F2ED",
+			"textColor": "#7A869A",
+			"highlightColor": "#ff0000"
 		},
 		{
-			"name": "СтатусыБукинга_Подтвержден",
-			"backgroundColor": "#CA7AFF",
-			"textColor": "#0000FF",
-			"highlightColor": ""
+			"name": "Свободен",
+			"backgroundColor": "#FFFFFF",
+			"textColor": "#7A869A"
 		},
 		{
-			"name": "СтатусыБукинга_Удален",
-			"backgroundColor": "",
-			"textColor": "",
-			"highlightColor": ""
+			"name": "ГрафикОтменен",
+			"backgroundColor": "#F4F5F7",
+			"textColor": "#7A869A"
 		},
 		{
-			"name": "СтатусыБукинга_Свободный",
-			"backgroundColor": "",
-			"textColor": "",
-			"highlightColor": ""
+			"name": "Пришел",
+			"backgroundColor": "#67CCC5",
+			"textColor": "#ffffff",
+			"highlightColor": "#ff0000"
 		},
 		{
-			"name": "СтатусыБукинга_Завершен",
-			"backgroundColor": "#49CA28",
-			"textColor": "#0000FF",
-			"highlightColor": ""
+			"name": "НеПришел",
+			"backgroundColor": "#DFE1E6",
+			"textColor": "#ffffff"
 		},
 		{
-			"name": "СтатусыБукинга_ГрафикОтменен",
-			"backgroundColor": "#F7E6FF",
-			"textColor": "#0000FF",
-			"highlightColor": "#0000FF"
-		},
-		{
-			"name": "СтатусыБукинга_НеПришел",
-			"backgroundColor": "#838C91",
-			"textColor": "#0000FF",
-			"highlightColor": ""
-		},
-		{
-			"name": "СтатусыБукинга_БронОтменен",
-			"backgroundColor": "",
-			"textColor": "",
-			"highlightColor": ""
-		},
-		{
-			"name": "СтатусыБукинга_БезГрафика",
-			"backgroundColor": "#979899",
-			"textColor": "#C9FFF8",
-			"highlightColor": "#0000FF"
-		},
-		{
-			"name": "СтатусыБукинга_Бронирован",
-			"backgroundColor": "#35AF9F",
-			"textColor": "#0000FF",
-			"highlightColor": ""
+			"name": "Завершен",
+			"backgroundColor": "#2A5369",
+			"textColor": "#ffffff",
+			"highlightColor": "#ff0000"
 		}
 	],
 	"bookingTypes": [
-		{ "name": "Клиника", "image": "slot_type_clinic.png" },
-		{ "name": "ВызовНаДом", "image": "slot_type_home.png" },
-		{ "name": "Телефон", "image": "slot_type_tel.png" },
-		{ "name": "Видео", "image": "slot_type_video.png" },
-		{ "name": "КлиникаИлиУдаленный", "image": "slot_type_clinicortel.png" }
+		{
+			"name": "Клиника",
+			"image": "clinic.png"
+		},
+		{
+			"name": "ВизитДома",
+			"image": "home.png"
+		},
+		{
+			"name": "Удаленный",
+			"image": "distant.png"
+		},
+		{
+			"name": "КлиникаИлиУдаленный",
+			"image": "clinicordistant.png"
+		},
+		{
+			"name": "Ковид",
+			"image": "covid.png"
+		}
 	],
 	"bookingInsurances": [
-		{ "name": "TBCInsurance", "image": "tbc.png" },
-		{ "name": "Ardi", "image": "ardi.png" },
-		{ "name": "GPI", "image": "gpi.png" },
-		{ "name": "PSP", "image": "psp.png" },
-		{ "name": "ImediL", "image": "imedil.png" }
+		{
+			"name": "TBCInsurance",
+			"image": "tbc.png"
+		},
+		{
+			"name": "Ardi",
+			"image": "ardi.png"
+		},
+		{
+			"name": "GPI",
+			"image": "gpi.png"
+		},
+		{
+			"name": "PSP",
+			"image": "psp.png"
+		},
+		{
+			"name": "ImediL",
+			"image": "imedil.png"
+		}
 	],
 	"commands": [
 		{
@@ -85,25 +88,17 @@
 		},
 		{
 			"type": "command",
+			"name": "booking_task",
+			"caption": "დაჯავშნა (დავალება)",
+			"tooltip": "მოცემულ სლოტზე დავალების დაჯავშნა",
+			"icon": "booking_task.png"
+		},
+		{
+			"type": "command",
 			"name": "cancel_booking",
 			"caption": "დაჯავშნის მოხსნა",
 			"tooltip": "დაჯავშნის მოხსნა მოცემულ სლოტზე",
 			"icon": "cancel_booking.png"
-		},
-		{ "type": "separator", "icon": "separator.png" },
-		{
-			"type": "command",
-			"name": "approved",
-			"caption": "დადასტურება",
-			"tooltip": "პაციენტმა დაადასტურა ჩაწერა",
-			"icon": "arrived.png"
-		},
-		{
-			"type": "command",
-			"name": "approvement_canceled",
-			"caption": "დადასტურების გაუქმება",
-			"tooltip": "პაციენტის დადასტურების გაუქმება",
-			"icon": "not_arrived.png"
 		},
 		{ "type": "separator", "icon": "separator.png" },
 		{
