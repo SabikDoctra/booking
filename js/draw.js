@@ -91,7 +91,7 @@ function draw(jsonData) {
 			evt.preventDefault();
 		});
 		element.addEventListener("click", function(evt) {
-			sendEvent("click", [evt.target.parentNode]);
+			sendEvent("click", [evt.target.parentNode], false);
 		});
 		element.addEventListener("dblclick", function(evt) {
 			sendEvent("doubleclick", [evt.target.parentNode]);
@@ -321,7 +321,7 @@ function readTextFile(file, callback) {
 	rawFile.send(null);
 }
 
-function sendEvent(eventName, selectedElements) {
+function sendEvent(eventName, selectedElements, clearSelection = true) {
 	let newEvent = new MouseEvent("click");
 	let selectedCards = new Array();
 	
@@ -338,7 +338,9 @@ function sendEvent(eventName, selectedElements) {
 		}),
 	};
 
-	selection.clearSelection();
+	if(clearSelection) {
+		selection.clearSelection();
+	}
 	console.log(newEvent.doctra_event);
 
 	return dispatchEvent(newEvent);
