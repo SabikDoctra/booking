@@ -91,10 +91,10 @@ function draw(jsonData) {
 			evt.preventDefault();
 		});
 		element.addEventListener("click", function(evt) {
-			sendEvent("click", [evt.target.parentNode], false);
+			sendClicks("click", [evt.target.parentNode], false);
 		});
 		element.addEventListener("dblclick", function(evt) {
-			sendEvent("doubleclick", [evt.target.parentNode]);
+			sendClicks("doubleclick", [evt.target.parentNode]);
 		});
 	});
 }
@@ -352,6 +352,32 @@ function sendEvent(eventName, selectedElements, clearSelection = true) {
 	return dispatchEvent(newEvent);
 }
 
+function sendClicks(eventName, selectedElements, clearSelection = true) {
+	let newEvent = new MouseEvent("click");
+	let selectedCards = new Array();
+	
+	selectedElements.forEach((element) => {
+		selectedCards.push(element.id.substring(2));
+		if(clearSelection) {
+			element.classList.remove("selected");
+		}		
+	});
+
+	newEvent.doctra_event = {
+		event_name: eventName,
+		data: JSON.stringify({
+			cells: selectedCards
+		}),
+	};
+
+	if(clearSelection) {
+		selection.clearSelection();
+	}
+	console.log(newEvent.doctra_event);
+
+	return dispatchEvent(newEvent);
+}
+
 function init_commands(initData) {
 	contextMenuOld = document.getElementById("contextMenu");
 	if (contextMenuOld) {
@@ -481,10 +507,10 @@ divtable.addEventListener("mousedown", function (evt) {
 	hideContextMenu(contextMenu, evt);
 });
 
-// readTextFile("js/init.json", function (text) {
-// 	doctra_call("init", text);
-// });
+readTextFile("js/init.json", function (text) {
+	doctra_call("init", text);
+});
 
-// readTextFile("js/update_cells.json", function (text) {
-// 	doctra_call("update_cells", text);
-// });
+readTextFile("js/update_cells.json", function (text) {
+	doctra_call("update_cells", text);
+});
