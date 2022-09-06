@@ -91,10 +91,10 @@ function draw(jsonData) {
 			evt.preventDefault();
 		});
 		element.addEventListener("click", function(evt) {
-			sendEvent("click", [evt.target.parentNode], false);
+			sendClicks("click", [evt.target.parentNode], false);
 		});
 		element.addEventListener("dblclick", function(evt) {
-			sendEvent("doubleclick", [evt.target.parentNode]);
+			sendClicks("doubleclick", [evt.target.parentNode]);
 		});
 	});
 }
@@ -341,6 +341,32 @@ function sendEvent(eventName, selectedElements, clearSelection = true) {
 		data: JSON.stringify({
 			command_name: eventName,
 			cells: selectedCards,
+		}),
+	};
+
+	if(clearSelection) {
+		selection.clearSelection();
+	}
+	console.log(newEvent.doctra_event);
+
+	return dispatchEvent(newEvent);
+}
+
+function sendClicks(eventName, selectedElements, clearSelection = true) {
+	let newEvent = new MouseEvent("click");
+	let selectedCards = new Array();
+	
+	selectedElements.forEach((element) => {
+		selectedCards.push(element.id.substring(2));
+		if(clearSelection) {
+			element.classList.remove("selected");
+		}		
+	});
+
+	newEvent.doctra_event = {
+		event_name: eventName,
+		data: JSON.stringify({
+			cells: selectedCards
 		}),
 	};
 
