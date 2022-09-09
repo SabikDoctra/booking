@@ -81,24 +81,11 @@ function draw(jsonData) {
 	} else {
 		jsonData.data.forEach((element) => drawSlots(element, !jsonData.redraw));
 	}
-	elements = document.getElementsByClassName("slot-layer");
-	Array.from(elements).forEach(function (element) {
-		element.addEventListener("contextmenu", function (evt) {
-			hideContextMenu(contextMenu, evt);
-			if (evt.target.getAttribute("contextMenuElement") == null) {
-				showContextMenu(contextMenu, evt);
-			}
-			evt.preventDefault();
-		});
-		element.addEventListener("click", function(evt) {
-			sendClicks("click", [evt.target.parentNode], false);
-		});
-		element.addEventListener("dblclick", function(evt) {
-			sendClicks("doubleclick", [evt.target.parentNode]);
-		});
-	});
+	// elements = document.getElementsByClassName("slot-layer");
+	// Array.from(elements).forEach(function (element) {
+		
+	// });
 }
-
 function drawHeader(element, index) {
 	if (curDate != "" && curDate != element.Дата) {
 		curDateBlock.style = `left: calc(${totalDateLength} * var(--slotWidth) - var(--borderSize)); 
@@ -212,6 +199,20 @@ function drawSlots(element, findElement) {
 	if (element.hasOwnProperty("Подсказка")) {
 		divSlot.setAttribute("title", element.Подсказка);
 	}
+
+	divSlot.addEventListener("contextmenu", function (evt) {
+		hideContextMenu(contextMenu, evt);
+		if (evt.target.getAttribute("contextMenuElement") == null) {
+			showContextMenu(contextMenu, evt);
+		}
+		evt.preventDefault();
+	});
+	divSlot.addEventListener("click", function(evt) {
+		sendClicks("click", [evt.target.parentNode], false);
+	});
+	divSlot.addEventListener("dblclick", function(evt) {
+		sendClicks("doubleclick", [evt.target.parentNode]);
+	});
 
 	divGrid.appendChild(divSlot);
 	containerBlock.appendChild(divGrid);
@@ -511,6 +512,6 @@ divtable.addEventListener("mousedown", function (evt) {
 // 	doctra_call("init", text);
 // });
 
-// readTextFile("js/update_cells.json", function (text) {
-// 	doctra_call("update_cells", text);
-// });
+readTextFile("js/update_cells.json", function (text) {
+	doctra_call("update_cells", text);
+});
