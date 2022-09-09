@@ -108,6 +108,7 @@ html {
 
 .container {
 	z-index: 1 !important;
+	background-color: #dfe1e6;
 }
 
 .header {
