@@ -512,6 +512,6 @@ divtable.addEventListener("mousedown", function (evt) {
 // 	doctra_call("init", text);
 // });
 
-readTextFile("js/update_cells.json", function (text) {
+/*readTextFile("js/update_cells.json", function (text) {
 	doctra_call("update_cells", text);
-});
+});*/
