@@ -236,7 +236,7 @@ function addClass(element, highlightClass = false) {
 			style += `color: ${element.textColor} !important;`;
 		}
 		if (element.hasOwnProperty("image") && element.image) {
-			style += `background-image: url('../images/${element.image}') !important;`;
+			style += `background-image: url('images/${element.image}') !important;`;
 		}	
 	}
 	if(highlightClass&&style == "") {
