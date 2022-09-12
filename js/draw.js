@@ -104,19 +104,21 @@ function drawHeader(element, index) {
 	curDate = element.Дата;
 
 	divElement = document.createElement("div");
-	divElement.innerHTML = `${element.Врач}`;
+	divElement.innerHTML = `${element.Врач.substring(0,45) + (element.Врач.length > 45?'...':'')}`;
 	divElement.className = `header doctor`;
 	divElement.setAttribute("id", `id${element.ИД}`);
 	divElement.setAttribute("index", index);
+	divElement.setAttribute("title", element.Врач);
 	divElement.style = `left: calc(${index} * var(--slotWidth) - var(--borderSize));`;
 
 	headerBlock.appendChild(divElement);
 
 	divElement = document.createElement("div");
-	divElement.innerHTML = `${element.Подразделение}`;
+	divElement.innerHTML = `${element.Подразделение.substring(0,45) + (element.Подразделение.length > 45?'...':'')}`;
 	divElement.className = `header department`;
 	divElement.style = `left: calc(${index} * var(--slotWidth) - var(--borderSize));`;
-
+	divElement.setAttribute("title", element.Подразделение);
+	
 	headerBlock.appendChild(divElement);
 }
 
