@@ -1,6 +1,8 @@
 const headerBlock = document.querySelector("#header");
 const timesBlock = document.querySelector("#times");
 const containerBlock = document.querySelector("#container");
+const errorBlock = document.querySelector("#errorblock");
+const divtableBlock = document.querySelector("#divtable");
 const cssRoot = document.querySelector(":root");
 let curDateBlock;
 let curDate;
@@ -50,6 +52,29 @@ function init(jsonString) {
 
 function draw(jsonData) {
 	if (jsonData.redraw) {
+
+		if (jsonData.text_only) {
+			errorblock.innerHTML = `<h1>${jsonData.text_only}</h1>`;
+			divtableBlock.classList.add("hidden");
+			errorBlock.classList.remove("hidden");
+			return;
+		} else {
+			errorblock.innerHTML = ``;
+			errorBlock.classList.add("hidden");
+			divtableBlock.classList.remove("hidden");
+		}
+
+		divtable.addEventListener("contextmenu", function (evt) {
+			if (evt.target.getAttribute("slot") == null) {
+				hideContextMenu(contextMenu, evt);
+				evt.preventDefault();
+			}
+		});
+		
+		divtable.addEventListener("mousedown", function (evt) {
+			hideContextMenu(contextMenu, evt);
+		});
+
 		curDate = "";
 		curDateBlock = "";
 		curDateLength = 0;
@@ -497,17 +522,6 @@ window.addEventListener("scroll", function (e) {
 			element.style = `left: 0px`;
 		}
 	});
-});
-
-divtable.addEventListener("contextmenu", function (evt) {
-	if (evt.target.getAttribute("slot") == null) {
-		hideContextMenu(contextMenu, evt);
-		evt.preventDefault();
-	}
-});
-
-divtable.addEventListener("mousedown", function (evt) {
-	hideContextMenu(contextMenu, evt);
 });
 
 readTextFile("js/init.json", function (text) {

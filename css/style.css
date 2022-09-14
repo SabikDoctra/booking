@@ -350,3 +350,16 @@ html {
 	white-space: nowrap;
 	color: var(--gridTextColor);
 }
+
+.error{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #7A869A;
+}
+
+.hidden {
+	display: none !important;
+}
