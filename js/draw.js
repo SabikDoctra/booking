@@ -65,7 +65,7 @@ function draw(jsonData) {
 				evt.preventDefault();
 			}
 		});
-		
+
 		divtableBlock.addEventListener("mousedown", function (evt) {
 			hideContextMenu(contextMenu, evt);
 		});
@@ -78,7 +78,7 @@ function draw(jsonData) {
 		headerBlock.innerHTML = "";
 		timesBlock.innerHTML = "";
 		containerBlock.innerHTML = "";
-		
+
 		cssRoot.style.setProperty(
 			`--divTableWidth`,
 			`calc(${jsonData.header.length} * var(--slotWidth) + var(--leftWidth))`
@@ -98,8 +98,9 @@ function draw(jsonData) {
 		jsonData.data.forEach((element) => drawSlots(element, !jsonData.redraw));
 	} else {
 		jsonData.data.forEach((element) => drawSlots(element, !jsonData.redraw));
-	}	
+	}
 }
+
 function drawHeader(element, index) {
 	if (curDate != "" && curDate != element.Дата) {
 		curDateBlock.style = `left: calc(${totalDateLength} * var(--slotWidth) - var(--borderSize)); 
@@ -118,7 +119,7 @@ function drawHeader(element, index) {
 	curDate = element.Дата;
 
 	divElement = document.createElement("div");
-	divElement.innerHTML = `${element.Врач.substring(0,40) + (element.Врач.length > 40?'...':'')}`;
+	divElement.innerHTML = `${element.Врач.substring(0, 40) + (element.Врач.length > 40 ? '...' : '')}`;
 	divElement.className = `header doctor`;
 	divElement.setAttribute("id", `id${element.ИД}`);
 	divElement.setAttribute("index", index);
@@ -128,11 +129,11 @@ function drawHeader(element, index) {
 	headerBlock.appendChild(divElement);
 
 	divElement = document.createElement("div");
-	divElement.innerHTML = `${element.Подразделение.substring(0,40) + (element.Подразделение.length > 40?'...':'')}`;
+	divElement.innerHTML = `${element.Подразделение.substring(0, 40) + (element.Подразделение.length > 40 ? '...' : '')}`;
 	divElement.className = `header department`;
 	divElement.style = `left: calc(${index} * var(--slotWidth) - var(--borderSize));`;
 	divElement.setAttribute("title", element.Подразделение);
-	
+
 	headerBlock.appendChild(divElement);
 }
 
@@ -151,7 +152,7 @@ function drawSlots(element, findElement) {
 	if (findElement) {
 		divGrid = document.querySelector(`#id${element.ИД}`);
 		divGrid.className = `slot-grid`;
-		if(element.hasOwnProperty("Удалять") && element.Удалять) {
+		if (element.hasOwnProperty("Удалять") && element.Удалять) {
 			divGrid.outerHTML = "";
 			return;
 		}
@@ -223,10 +224,10 @@ function drawSlots(element, findElement) {
 		}
 		evt.preventDefault();
 	});
-	divSlot.addEventListener("click", function(evt) {
+	divSlot.addEventListener("click", function (evt) {
 		sendClicks("click", [evt.target.parentNode], false);
 	});
-	divSlot.addEventListener("dblclick", function(evt) {
+	divSlot.addEventListener("dblclick", function (evt) {
 		sendClicks("doubleclick", [evt.target.parentNode]);
 	});
 
@@ -236,7 +237,7 @@ function drawSlots(element, findElement) {
 
 function addClass(element, highlightClass = false) {
 	style = "";
-	if(highlightClass) {
+	if (highlightClass) {
 		if (element.hasOwnProperty("highlightColor") && element.highlightColor) {
 			style += `border-left: 4px solid ${element.highlightColor} !important;`;
 			style += `border-top-left-radius: 0px !important;`;
@@ -251,12 +252,12 @@ function addClass(element, highlightClass = false) {
 		}
 		if (element.hasOwnProperty("image") && element.image) {
 			style += `background-image: url('images/${element.image}') !important;`;
-		}	
+		}
 	}
-	if(highlightClass&&style == "") {
+	if (highlightClass && style == "") {
 		return;
 	}
-	createCSSSelector(`.json-${element.name+(highlightClass?"-highlighted":"")}`, style);
+	createCSSSelector(`.json-${element.name + (highlightClass ? "-highlighted" : "")}`, style);
 }
 
 function createCSSSelector(selector, style) {
@@ -320,7 +321,7 @@ function createCSSSelector(selector, style) {
 			if (
 				styleSheet.cssRules[i].selectorText &&
 				styleSheet.cssRules[i].selectorText.toLowerCase() ==
-					selector.toLowerCase()
+				selector.toLowerCase()
 			) {
 				styleSheet.cssRules[i].style.cssText = style;
 				return;
@@ -345,12 +346,12 @@ function readTextFile(file, callback) {
 function sendEvent(eventName, selectedElements, clearSelection = true) {
 	let newEvent = new MouseEvent("click");
 	let selectedCards = new Array();
-	
+
 	selectedElements.forEach((element) => {
 		selectedCards.push(element.id.substring(2));
-		if(clearSelection) {
+		if (clearSelection) {
 			element.classList.remove("selected");
-		}		
+		}
 	});
 
 	newEvent.doctra_event = {
@@ -361,7 +362,7 @@ function sendEvent(eventName, selectedElements, clearSelection = true) {
 		}),
 	};
 
-	if(clearSelection) {
+	if (clearSelection) {
 		selection.clearSelection();
 	}
 	//console.log(newEvent.doctra_event);
@@ -372,12 +373,12 @@ function sendEvent(eventName, selectedElements, clearSelection = true) {
 function sendClicks(eventName, selectedElements, clearSelection = true) {
 	let newEvent = new MouseEvent("click");
 	let selectedCards = new Array();
-	
+
 	selectedElements.forEach((element) => {
 		selectedCards.push(element.id.substring(2));
-		if(clearSelection) {
+		if (clearSelection) {
 			element.classList.remove("selected");
-		}		
+		}
 	});
 
 	newEvent.doctra_event = {
@@ -387,7 +388,7 @@ function sendClicks(eventName, selectedElements, clearSelection = true) {
 		}),
 	};
 
-	if(clearSelection) {
+	if (clearSelection) {
 		selection.clearSelection();
 	}
 	//console.log(newEvent.doctra_event);
@@ -469,7 +470,7 @@ function setContextMenuPostion(event, contextMenu) {
 
 	if (
 		mousePosition.x + menuDimension.x >
-			document.body.offsetWidth + window.scrollX &&
+		document.body.offsetWidth + window.scrollX &&
 		mousePosition.x - menuDimension.x >= 0
 	) {
 		menuPostion.x = mousePosition.x - menuDimension.x;
@@ -479,7 +480,7 @@ function setContextMenuPostion(event, contextMenu) {
 
 	if (
 		mousePosition.y + menuDimension.y >
-			document.body.offsetHeight + window.scrollY &&
+		document.body.scrollHeight &&
 		mousePosition.y - menuDimension.y >= 0
 	) {
 		menuPostion.y = mousePosition.y - menuDimension.y;
