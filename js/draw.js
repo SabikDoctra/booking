@@ -1,8 +1,3 @@
-const headerBlock = document.querySelector("#header");
-const timesBlock = document.querySelector("#times");
-const containerBlock = document.querySelector("#container");
-const errorBlock = document.querySelector("#errorblock");
-const divtableBlock = document.querySelector("#divtable");
 const cssRoot = document.querySelector(":root");
 let curDateBlock;
 let curDate;
@@ -54,24 +49,24 @@ function draw(jsonData) {
 	if (jsonData.redraw) {
 
 		if (jsonData.text_only) {
-			errorblock.innerHTML = `<h1>${jsonData.text_only}</h1>`;
+			errorBlock.innerHTML = `<h1>${jsonData.text_only}</h1>`;
 			divtableBlock.classList.add("hidden");
 			errorBlock.classList.remove("hidden");
 			return;
 		} else {
-			errorblock.innerHTML = ``;
+			errorBlock.innerHTML = ``;
 			errorBlock.classList.add("hidden");
 			divtableBlock.classList.remove("hidden");
 		}
 
-		divtable.addEventListener("contextmenu", function (evt) {
+		divtableBlock.addEventListener("contextmenu", function (evt) {
 			if (evt.target.getAttribute("slot") == null) {
 				hideContextMenu(contextMenu, evt);
 				evt.preventDefault();
 			}
 		});
 		
-		divtable.addEventListener("mousedown", function (evt) {
+		divtableBlock.addEventListener("mousedown", function (evt) {
 			hideContextMenu(contextMenu, evt);
 		});
 
@@ -93,23 +88,17 @@ function draw(jsonData) {
 			`calc(${jsonData.times.length} * var(--hourHeight) + var(--topHeight))`
 		);
 
-		console.log(jsonData.header);
 		jsonData.header.forEach((element, index) => drawHeader(element, index));
 		curDateBlock.style = `left: calc(${totalDateLength} * var(--slotWidth) - var(--borderSize)); 
 			width: calc(${curDateLength} * var(--slotWidth) + var(--borderSize));`;
 
-		console.log(curDateBlock);
 		headerBlock.appendChild(curDateBlock);
 
 		jsonData.times.forEach((element, index) => drawTimes(element, index));
 		jsonData.data.forEach((element) => drawSlots(element, !jsonData.redraw));
 	} else {
 		jsonData.data.forEach((element) => drawSlots(element, !jsonData.redraw));
-	}
-	// elements = document.getElementsByClassName("slot-layer");
-	// Array.from(elements).forEach(function (element) {
-		
-	// });
+	}	
 }
 function drawHeader(element, index) {
 	if (curDate != "" && curDate != element.Дата) {
@@ -375,7 +364,7 @@ function sendEvent(eventName, selectedElements, clearSelection = true) {
 	if(clearSelection) {
 		selection.clearSelection();
 	}
-	console.log(newEvent.doctra_event);
+	//console.log(newEvent.doctra_event);
 
 	return dispatchEvent(newEvent);
 }
@@ -401,7 +390,7 @@ function sendClicks(eventName, selectedElements, clearSelection = true) {
 	if(clearSelection) {
 		selection.clearSelection();
 	}
-	console.log(newEvent.doctra_event);
+	//console.log(newEvent.doctra_event);
 
 	return dispatchEvent(newEvent);
 }

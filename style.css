@@ -27,12 +27,12 @@
 
 @font-face {
 	font-family: "MyriadGEOMedium";
-	src: url("../fonts/MYRIADGEOMEDIUM.TTF");
+	src: url("fonts/MYRIADGEOMEDIUM.TTF");
 }
 
 @font-face {
 	font-family: "MyriadGEOBold";
-	src: url("../fonts/MYRIADGEOBOLD.TTF");
+	src: url("fonts/MYRIADGEOBOLD.TTF");
 }
 
 html,
