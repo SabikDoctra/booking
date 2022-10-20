@@ -35,6 +35,7 @@ function init(jsonString) {
 	if (initData.hasOwnProperty("statuses")) {
 		initData.statuses.forEach((element) => addClass(element));
 		initData.statuses.forEach((element) => addClass(element, true));
+		initData.statuses.forEach((element) => addClass(element, false, true));
 	}
 	if (initData.hasOwnProperty("bookingTypes")) {
 		initData.bookingTypes.forEach((element) => addClass(element));
@@ -183,6 +184,9 @@ function drawSlots(element, findElement) {
 	if (element.hasOwnProperty("Выделение") && element.Выделение) {
 		divSlot.className += ` json-${element.Статус}-highlighted`;
 	}
+	if (element.hasOwnProperty("ЭтоПервичныйПациент") && element.ЭтоПервичныйПациент) {
+		divSlot.className += ` json-${element.Статус}-firsttime`;
+	}
 	if (element.hasOwnProperty("Время") && element.Время) {
 		divSlotDetails = document.createElement("div");
 		divSlotDetails.className = `slot-time`;
@@ -235,13 +239,17 @@ function drawSlots(element, findElement) {
 	containerBlock.appendChild(divGrid);
 }
 
-function addClass(element, highlightClass = false) {
+function addClass(element, highlightClass = false, firstTimePatientClass = false) {
 	style = "";
 	if (highlightClass) {
 		if (element.hasOwnProperty("highlightColor") && element.highlightColor) {
 			style += `border-left: 4px solid ${element.highlightColor} !important;`;
 			style += `border-top-left-radius: 0px !important;`;
 			style += `border-bottom-left-radius: 0px !important;`;
+		}
+	} else if (firstTimePatientClass) {
+		if (element.hasOwnProperty("firstTimeColor") && element.firstTimeColor) {
+			style += `background-color: ${element.firstTimeColor} !important;`;
 		}
 	} else {
 		if (element.hasOwnProperty("backgroundColor") && element.backgroundColor) {
@@ -254,10 +262,10 @@ function addClass(element, highlightClass = false) {
 			style += `background-image: url('images/${element.image}') !important;`;
 		}
 	}
-	if (highlightClass && style == "") {
+	if ((highlightClass || firstTimePatientClass) && style == "") {
 		return;
 	}
-	createCSSSelector(`.json-${element.name + (highlightClass ? "-highlighted" : "")}`, style);
+	createCSSSelector(`.json-${element.name + (highlightClass ? "-highlighted" : (firstTimePatientClass ? "-firsttime" : ""))}`, style);
 }
 
 function createCSSSelector(selector, style) {
