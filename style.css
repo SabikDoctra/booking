@@ -1,5 +1,6 @@
 :root {
 	--borderSize: 1px;
+	--borderSizeBold: 1px;
 	--leftWidth: 40px;
 	--topHeight: 100px;
 	--dateHeight: 30px;
@@ -7,6 +8,7 @@
 	--slotWidth: 200px;
 	--hourHeight: 100px;
 	--borderColor: #dfe1e6;
+	--borderColorDark: #dfe1e6;
 	--selectionBorderColor: #2d8dcc;
 	--selectionAreaColor: #2d8dcc1a;
 	--selectionColor: #3bbea51a;
@@ -96,7 +98,11 @@ html {
 .topleftblock {
 	height: calc(var(--topHeight) + var(--borderSize));
 	width: calc(var(--leftWidth) + var(--borderSize));
-	border: var(--borderSize) solid var(--borderColor);
+	border: var(--borderSize) solid var(--borderColorDark);
+	border-right: var(--borderSizeBold) solid var(--borderColorDark);
+	/* border-left: var(--borderSize) solid var(--borderColorDark);
+	border-top: var(--borderSize) solid var(--borderColorDark); */
+	border-bottom: var(--borderSizeBold) solid var(--borderColorDark);
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -113,7 +119,11 @@ html {
 
 .header {
 	position: absolute;
-	border: var(--borderSize) solid var(--borderColor);
+	border: var(--borderSize) solid var(--borderColorDark);
+	border-right: var(--borderSizeBold) solid var(--borderColorDark);
+	/* border-left: var(--borderSize) solid var(--borderColorDark);
+	border-top: var(--borderSize) solid var(--borderColorDark); */
+	border-bottom: var(--borderSizeBold) solid var(--borderColorDark);
 	background-color: var(--gridBackgroundColor) !important;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -178,6 +188,8 @@ html {
 	opacity: 1;
 	position: absolute;
 	border: var(--borderSize) solid var(--borderColor);
+	border-right: var(--borderSizeBold) solid var(--borderColorDark);
+	border-left: var(--borderSize) solid var(--borderColorDark);
 	background-color: var(--gridBackgroundColor) !important;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -191,6 +203,8 @@ html {
 	position: absolute;
 	background-color: var(--slotEmptyColor);
 	border: var(--borderSize) solid var(--borderColor);
+	border-right: var(--borderSizeBold) solid var(--borderColorDark);
+	border-left: var(--borderSize) solid var(--borderColorDark);
 	cursor: pointer;
 	padding: 1px;
 	width: calc(var(--slotWidth) + var(--borderSize));
@@ -252,7 +266,9 @@ html {
 }
 
 .selected {
-	border: 1px solid #3bbea5;
+	border: var(--borderSize) solid #3bbea5;
+	border-right: var(--borderSizeBold) solid #3bbea5;
+	border-left: var(--borderSize) solid #3bbea5;
 	z-index: 10;
 }
 
