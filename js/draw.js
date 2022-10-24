@@ -229,10 +229,10 @@ function drawSlots(element, findElement) {
 	divSlot.setAttribute("slot", true);
 	divTitle = "";
 	if (element.hasOwnProperty("Пациент") && element.Пациент) {
-		divTitle += (divTitle === "","","\n") + element.Пациент;
+		divTitle += (divTitle?"\n":"") + element.Пациент;
 	}
 	if (element.hasOwnProperty("Подсказка") && element.Подсказка) {
-		divTitle += (divTitle === "","","\n") + element.Подсказка;
+		divTitle += (divTitle?"\n":"") + element.Подсказка;
 	}
 	divSlot.setAttribute("title", divTitle);
 
