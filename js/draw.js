@@ -218,7 +218,7 @@ function drawSlots(element, findElement) {
 	if (element.hasOwnProperty("Пациент") && element.Пациент) {
 		divSlotDetails = document.createElement("div");
 		divSlotDetails.className = `slot-patient`;
-		divSlotDetails.innerHTML = `${(element.Пациент.length >= 18 ? element.Пациент.substring(0, 18) + ".." : element.Пациент)}`;
+		divSlotDetails.innerHTML = `${(element.Пациент.length >= 18 ? element.Пациент.substring(0, 15) + "..." : element.Пациент)}`;
 		divSlot.appendChild(divSlotDetails);
 	}
 
