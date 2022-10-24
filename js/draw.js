@@ -22,6 +22,16 @@ function update_cells(jsonString) {
 	if (jsonData.hasOwnProperty("hourHeight")) {
 		cssRoot.style.setProperty(`--hourHeight`, `${jsonData.hourHeight}px`);
 	}
+	if (jsonData.hasOwnProperty("compact") && jsonData.compact) {
+		cssRoot.style.setProperty(`--displayPatient`, `none`);
+		cssRoot.style.setProperty(`--slotPadding`, `3px`);
+		cssRoot.style.setProperty(`--headerFontSize`, `11px`);
+		cssRoot.style.setProperty(`--gridFontSize`, `11px`);
+		cssRoot.style.setProperty(`--borderSizeBold`, `2px`);
+		cssRoot.style.setProperty(`--slotWidth`, `100px`);	
+		cssRoot.style.setProperty(`--hourHeight`, `${(cssRoot.style.getPropertyValue(`--hourHeight`).replace("px","") * 0.707070707)}px`);
+		// cssRoot.style.setProperty(`--borderColorDark`, `#7a869a`);
+	}
 	if (jsonData.hasOwnProperty("styles")) {
 		jsonData.styles.forEach((element) =>
 			cssRoot.style.setProperty(`--${element.name}`, element.value)
@@ -208,7 +218,7 @@ function drawSlots(element, findElement) {
 	if (element.hasOwnProperty("Пациент") && element.Пациент) {
 		divSlotDetails = document.createElement("div");
 		divSlotDetails.className = `slot-patient`;
-		divSlotDetails.innerHTML = `${element.Пациент}`;
+		divSlotDetails.innerHTML = `${(element.Пациент.length >= 18 ? element.Пациент.substring(0, 18) + ".." : element.Пациент)}`;
 		divSlot.appendChild(divSlotDetails);
 	}
 
@@ -217,9 +227,14 @@ function drawSlots(element, findElement) {
 	divSlot = document.createElement("div");
 	divSlot.className = `slot-layer`;
 	divSlot.setAttribute("slot", true);
-	if (element.hasOwnProperty("Подсказка")) {
-		divSlot.setAttribute("title", element.Подсказка);
+	divTitle = "";
+	if (element.hasOwnProperty("Пациент") && element.Пациент) {
+		divTitle += (divTitle === "","","\n") + element.Пациент;
 	}
+	if (element.hasOwnProperty("Подсказка") && element.Подсказка) {
+		divTitle += (divTitle === "","","\n") + element.Подсказка;
+	}
+	divSlot.setAttribute("title", divTitle);
 
 	divSlot.addEventListener("contextmenu", function (evt) {
 		hideContextMenu(contextMenu, evt);
