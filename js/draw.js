@@ -29,7 +29,9 @@ function update_cells(jsonString) {
 		cssRoot.style.setProperty(`--gridFontSize`, `11px`);
 		cssRoot.style.setProperty(`--borderSizeBold`, `2px`);
 		cssRoot.style.setProperty(`--slotWidth`, `100px`);	
-		cssRoot.style.setProperty(`--hourHeight`, `${(cssRoot.style.getPropertyValue(`--hourHeight`).replace("px","") * 0.707070707)}px`);
+		if (jsonData.hasOwnProperty("hourHeight")) {
+			cssRoot.style.setProperty(`--hourHeight`, `${(cssRoot.style.getPropertyValue(`--hourHeight`).replace("px","") * 0.707070707)}px`);
+		}		
 		// cssRoot.style.setProperty(`--borderColorDark`, `#7a869a`);
 	}
 	if (jsonData.hasOwnProperty("styles")) {
