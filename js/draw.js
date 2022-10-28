@@ -3,6 +3,11 @@ let curDateBlock;
 let curDate;
 let curDateLength;
 let totalDateLength;
+let eventProperties = {
+	event_name: "",
+	data: ""
+};
+let eventPropertiesReturn;
 
 function doctra_call(functionName, data) {
 	switch (functionName) {
@@ -379,20 +384,31 @@ function sendEvent(eventName, selectedElements, clearSelection = true) {
 		}
 	});
 
-	newEvent.doctra_event = {
-		event_name: "command",
-		data: JSON.stringify({
-			command_name: eventName,
-			cells: selectedCards,
-		}),
-	};
+	eventProperties.event_name = "command";
+	eventProperties.data = JSON.stringify({
+		command_name: eventName,
+		cells: selectedCards,
+	});
+
+	newEvent.doctra_event = eventProperties;
 
 	if (clearSelection) {
 		selection.clearSelection();
 	}
-	//console.log(newEvent.doctra_event);
+	console.log(newEvent.doctra_event);
 
 	return dispatchEvent(newEvent);
+}
+
+function getEventProperties() {
+
+	eventPropertiesReturn = eventProperties;
+	eventProperties = {
+		event_name: "",
+		data: ""
+	};
+
+	return eventPropertiesReturn;
 }
 
 function sendClicks(eventName, selectedElements, clearSelection = true) {
@@ -406,17 +422,17 @@ function sendClicks(eventName, selectedElements, clearSelection = true) {
 		}
 	});
 
-	newEvent.doctra_event = {
-		event_name: eventName,
-		data: JSON.stringify({
-			cells: selectedCards
-		}),
-	};
+	eventProperties.event_name = eventName;
+	eventProperties.data = JSON.stringify({
+		cells: selectedCards
+	});
+
+	newEvent.doctra_event = eventProperties;
 
 	if (clearSelection) {
 		selection.clearSelection();
 	}
-	//console.log(newEvent.doctra_event);
+	console.log(newEvent.doctra_event);
 
 	return dispatchEvent(newEvent);
 }
@@ -537,6 +553,10 @@ window.addEventListener("scroll", function (e) {
 			element.style = `left: 0px`;
 		}
 	});
+});
+
+body.addEventListener("dblclick", function (evt) {
+	clickButton.click();
 });
 
 readTextFile("js/init.json", function (text) {
