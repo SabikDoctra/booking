@@ -555,7 +555,7 @@ window.addEventListener("scroll", function (e) {
 	});
 });
 
-body.addEventListener("dblclick", function (evt) {
+document.body.addEventListener("dblclick", function (evt) {
 	clickButton.click();
 });
 
