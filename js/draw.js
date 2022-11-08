@@ -141,7 +141,7 @@ function drawHeader(element, index) {
 	divElement.className = `header doctor`;
 	divElement.setAttribute("id", `id${element.ИД}`);
 	divElement.setAttribute("index", index);
-	divElement.setAttribute("title", element.Врач);
+	divElement.setAttribute("title", (element.Подсказка ? element.Подсказка : element.Врач));
 	divElement.style = `left: calc(${index} * var(--slotWidth) - var(--borderSize));`;
 
 	headerBlock.appendChild(divElement);
