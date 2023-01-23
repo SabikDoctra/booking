@@ -270,9 +270,9 @@ html {
 }
 
 .selected {
-	border: var(--borderSize) solid #3bbea5;
+	border: var(--borderSizeBold) solid #3bbea5;
 	border-right: var(--borderSizeBold) solid #3bbea5;
-	border-left: var(--borderSize) solid #3bbea5;
+	border-left: var(--borderSizeBold) solid #3bbea5;
 	z-index: 10;
 }
 
