@@ -66,7 +66,9 @@ function init(jsonString) {
 function draw(jsonData) {
 	if (jsonData.redraw) {
 
-		hideContextMenu(contextMenu, false);
+		if(contextMenu) {
+			hideContextMenu(contextMenu, false);
+		}		
 
 		if (jsonData.text_only) {
 			errorBlock.innerHTML = `<h1>${jsonData.text_only}</h1>`;
