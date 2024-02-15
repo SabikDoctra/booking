@@ -4,7 +4,7 @@
 	--headerFontSize: 12px;
 	--gridFontSize: 12px;
 	--borderSize: 1px;
-	--borderSizeBold: 1px;
+	--borderSizeBold: 2px;
 	--leftWidth: 40px;
 	--topHeight: 100px;
 	--dateHeight: 30px;
@@ -15,7 +15,7 @@
 	--borderColorDark: #dfe1e6;
 	--selectionBorderColor: #2d8dcc;
 	--selectionAreaColor: #2d8dcc1a;
-	--selectionColor: #3bbea51a;
+	--selectionColor: #4587df3a;
 	--gridBackgroundColor: #f4f5f7;
 	--gridTextColor: #7a869a;
 	--topLeftBackgroundColor: #f4f5f7;
@@ -270,9 +270,9 @@ html {
 }
 
 .selected {
-	border: var(--borderSizeBold) solid #3bbea5;
-	border-right: var(--borderSizeBold) solid #3bbea5;
-	border-left: var(--borderSizeBold) solid #3bbea5;
+	border: var(--borderSizeBold) solid #4587df;
+	border-right: var(--borderSizeBold) solid #4587df;
+	border-left: var(--borderSizeBold) solid #4587df;
 	z-index: 10;
 }
 
