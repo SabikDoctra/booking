@@ -5,7 +5,7 @@ let curDateLength;
 let totalDateLength;
 let eventProperties = {
 	event_name: "",
-	data: ""
+	data: "",
 };
 let eventPropertiesReturn;
 
@@ -33,15 +33,18 @@ function update_cells(jsonString) {
 		cssRoot.style.setProperty(`--headerFontSize`, `11px`);
 		cssRoot.style.setProperty(`--gridFontSize`, `11px`);
 		cssRoot.style.setProperty(`--borderSizeBold`, `2px`);
-		cssRoot.style.setProperty(`--slotWidth`, `100px`);	
+		cssRoot.style.setProperty(`--slotWidth`, `100px`);
 		if (jsonData.hasOwnProperty("hourHeight") || jsonData.redraw) {
-			cssRoot.style.setProperty(`--hourHeight`, `${(cssRoot.style.getPropertyValue(`--hourHeight`).replace("px","") * 280 / 396)}px`);
-		}		
+			cssRoot.style.setProperty(
+				`--hourHeight`,
+				`${(cssRoot.style.getPropertyValue(`--hourHeight`).replace("px", "") * 280) / 396}px`,
+			);
+		}
 		// cssRoot.style.setProperty(`--borderColorDark`, `#7a869a`);
 	}
 	if (jsonData.hasOwnProperty("styles")) {
 		jsonData.styles.forEach((element) =>
-			cssRoot.style.setProperty(`--${element.name}`, element.value)
+			cssRoot.style.setProperty(`--${element.name}`, element.value),
 		);
 	}
 	draw(jsonData);
@@ -65,10 +68,9 @@ function init(jsonString) {
 
 function draw(jsonData) {
 	if (jsonData.redraw) {
-
-		if(contextMenu) {
+		if (contextMenu) {
 			hideContextMenu(contextMenu, false);
-		}		
+		}
 
 		if (jsonData.text_only) {
 			errorBlock.innerHTML = `<h1>${jsonData.text_only}</h1>`;
@@ -103,11 +105,11 @@ function draw(jsonData) {
 
 		cssRoot.style.setProperty(
 			`--divTableWidth`,
-			`calc(${jsonData.header.length} * var(--slotWidth) + var(--leftWidth))`
+			`calc(${jsonData.header.length} * var(--slotWidth) + var(--leftWidth))`,
 		);
 		cssRoot.style.setProperty(
 			`--divTableHeight`,
-			`calc(${jsonData.times.length} * var(--hourHeight) + var(--topHeight))`
+			`calc(${jsonData.times.length} * var(--hourHeight) + var(--topHeight))`,
 		);
 
 		jsonData.header.forEach((element, index) => drawHeader(element, index));
@@ -119,7 +121,9 @@ function draw(jsonData) {
 		jsonData.times.forEach((element, index) => drawTimes(element, index));
 		jsonData.data.forEach((element) => drawSlots(element, !jsonData.redraw));
 	} else {
-		jsonData.data.forEach((element) => drawSlots(element, !jsonData.redraw));
+		jsonData.data.forEach((element) => {
+			drawSlots(element, !jsonData.redraw);
+		});
 	}
 }
 
@@ -141,17 +145,21 @@ function drawHeader(element, index) {
 	curDate = element.Дата;
 
 	divElement = document.createElement("div");
-	divElement.innerHTML = `${element.Врач.substring(0, 40) + (element.Врач.length > 40 ? '...' : '')}`;
+	divElement.innerHTML = `${
+		element.Врач.substring(0, 40) + (element.Врач.length > 40 ? "..." : "")
+	}`;
 	divElement.className = `header doctor`;
 	divElement.setAttribute("id", `id${element.ИД}`);
 	divElement.setAttribute("index", index);
-	divElement.setAttribute("title", (element.Подсказка ? element.Подсказка : element.Врач));
+	divElement.setAttribute("title", element.Подсказка ? element.Подсказка : element.Врач);
 	divElement.style = `left: calc(${index} * var(--slotWidth) - var(--borderSize));`;
 
 	headerBlock.appendChild(divElement);
 
 	divElement = document.createElement("div");
-	divElement.innerHTML = `${element.Подразделение.substring(0, 40) + (element.Подразделение.length > 40 ? '...' : '')}`;
+	divElement.innerHTML = `${
+		element.Подразделение.substring(0, 40) + (element.Подразделение.length > 40 ? "..." : "")
+	}`;
 	divElement.className = `header department`;
 	divElement.style = `left: calc(${index} * var(--slotWidth) - var(--borderSize));`;
 	divElement.setAttribute("title", element.Подразделение);
@@ -173,6 +181,9 @@ function drawTimes(element, index) {
 function drawSlots(element, findElement) {
 	if (findElement) {
 		divGrid = document.querySelector(`#id${element.ИД}`);
+		if (!divGrid) {
+			return;
+		}
 		divGrid.className = `slot-grid`;
 		if (element.hasOwnProperty("Удалять") && element.Удалять) {
 			divGrid.outerHTML = "";
@@ -193,10 +204,7 @@ function drawSlots(element, findElement) {
 
 	divSlot = document.createElement("div");
 	divSlot.className = `slot`;
-	if (
-		element.hasOwnProperty("ИдентификаторСтатуса") &&
-		element.ИдентификаторСтатуса
-	) {
+	if (element.hasOwnProperty("ИдентификаторСтатуса") && element.ИдентификаторСтатуса) {
 		divSlot.className += ` slot-${element.ИдентификаторСтатуса}`;
 	}
 	if (element.hasOwnProperty("Статус") && element.Статус) {
@@ -229,7 +237,9 @@ function drawSlots(element, findElement) {
 	if (element.hasOwnProperty("Пациент") && element.Пациент) {
 		divSlotDetails = document.createElement("div");
 		divSlotDetails.className = `slot-patient`;
-		divSlotDetails.innerHTML = `${(element.Пациент.length >= 17 ? element.Пациент.substring(0, 14) + "..." : element.Пациент)}`;
+		divSlotDetails.innerHTML = `${
+			element.Пациент.length >= 17 ? element.Пациент.substring(0, 14) + "..." : element.Пациент
+		}`;
 		divSlot.appendChild(divSlotDetails);
 	}
 
@@ -240,10 +250,10 @@ function drawSlots(element, findElement) {
 	divSlot.setAttribute("slot", true);
 	divTitle = "";
 	if (element.hasOwnProperty("Пациент") && element.Пациент) {
-		divTitle += (divTitle?"\n":"") + element.Пациент;
+		divTitle += (divTitle ? "\n" : "") + element.Пациент;
 	}
 	if (element.hasOwnProperty("Подсказка") && element.Подсказка) {
-		divTitle += (divTitle?"\n":"") + element.Подсказка;
+		divTitle += (divTitle ? "\n" : "") + element.Подсказка;
 	}
 	divSlot.setAttribute("title", divTitle);
 
@@ -291,7 +301,12 @@ function addClass(element, highlightClass = false, firstTimePatientClass = false
 	if ((highlightClass || firstTimePatientClass) && style == "") {
 		return;
 	}
-	createCSSSelector(`.json-${element.name + (highlightClass ? "-highlighted" : (firstTimePatientClass ? "-firsttime" : ""))}`, style);
+	createCSSSelector(
+		`.json-${
+			element.name + (highlightClass ? "-highlighted" : firstTimePatientClass ? "-firsttime" : "")
+		}`,
+		style,
+	);
 }
 
 function createCSSSelector(selector, style) {
@@ -311,10 +326,7 @@ function createCSSSelector(selector, style) {
 					styleSheet = document.styleSheets[i];
 				}
 			} else if (mediaType == "object") {
-				if (
-					media.mediaText === "" ||
-					media.mediaText.indexOf("screen") !== -1
-				) {
+				if (media.mediaText === "" || media.mediaText.indexOf("screen") !== -1) {
 					styleSheet = document.styleSheets[i];
 				}
 			}
@@ -354,8 +366,7 @@ function createCSSSelector(selector, style) {
 		for (var i = 0; i < styleSheetLength; i++) {
 			if (
 				styleSheet.cssRules[i].selectorText &&
-				styleSheet.cssRules[i].selectorText.toLowerCase() ==
-				selector.toLowerCase()
+				styleSheet.cssRules[i].selectorText.toLowerCase() == selector.toLowerCase()
 			) {
 				styleSheet.cssRules[i].style.cssText = style;
 				return;
@@ -399,17 +410,15 @@ function sendEvent(eventName, selectedElements, clearSelection = true) {
 	if (clearSelection) {
 		selection.clearSelection();
 	}
-	console.log(newEvent.doctra_event);
 
 	return dispatchEvent(newEvent);
 }
 
 function getEventProperties() {
-
 	eventPropertiesReturn = eventProperties;
 	eventProperties = {
 		event_name: "",
-		data: ""
+		data: "",
 	};
 
 	return eventPropertiesReturn;
@@ -428,7 +437,7 @@ function sendClicks(eventName, selectedElements, clearSelection = true) {
 
 	eventProperties.event_name = eventName;
 	eventProperties.data = JSON.stringify({
-		cells: selectedCards
+		cells: selectedCards,
 	});
 
 	newEvent.doctra_event = eventProperties;
@@ -436,7 +445,6 @@ function sendClicks(eventName, selectedElements, clearSelection = true) {
 	if (clearSelection) {
 		selection.clearSelection();
 	}
-	console.log(newEvent.doctra_event);
 
 	return dispatchEvent(newEvent);
 }
@@ -514,8 +522,7 @@ function setContextMenuPostion(event, contextMenu) {
 	mousePosition.y = event.pageY;
 
 	if (
-		mousePosition.x + menuDimension.x >
-		document.body.offsetWidth + window.scrollX &&
+		mousePosition.x + menuDimension.x > document.body.offsetWidth + window.scrollX &&
 		mousePosition.x - menuDimension.x >= 0
 	) {
 		menuPostion.x = mousePosition.x - menuDimension.x;
@@ -524,8 +531,7 @@ function setContextMenuPostion(event, contextMenu) {
 	}
 
 	if (
-		mousePosition.y + menuDimension.y >
-		document.body.scrollHeight &&
+		mousePosition.y + menuDimension.y > document.body.scrollHeight &&
 		mousePosition.y - menuDimension.y >= 0
 	) {
 		menuPostion.y = mousePosition.y - menuDimension.y;
@@ -548,10 +554,7 @@ window.addEventListener("scroll", function (e) {
 		let parentLeft = element.parentElement.offsetLeft;
 		let parentWidth = element.parentElement.offsetWidth - 20;
 		let elementWidth = element.offsetWidth;
-		if (
-			parentWidth - elementWidth > scrollLeft - parentLeft &&
-			parentLeft < scrollLeft
-		) {
+		if (parentWidth - elementWidth > scrollLeft - parentLeft && parentLeft < scrollLeft) {
 			element.style = `left: ${scrollLeft - parentLeft}px`;
 		} else if (scrollLeft <= parentLeft) {
 			element.style = `left: 0px`;
