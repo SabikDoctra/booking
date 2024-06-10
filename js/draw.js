@@ -427,7 +427,6 @@ function getEventProperties() {
 function sendClicks(eventName, selectedElements, clearSelection = true) {
 	let newEvent = new MouseEvent("click");
 	let selectedCards = new Array();
-	//tests
 
 	selectedElements.forEach((element) => {
 		selectedCards.push(element.id.substring(2));
