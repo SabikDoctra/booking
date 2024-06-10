@@ -80,7 +80,7 @@ html {
 }
 
 .leftcol {
-	width: vaar(--leftWidth);
+	width: var(--leftWidth);
 	position: -webkit-sticky;
 	position: sticky;
 	left: 0;
