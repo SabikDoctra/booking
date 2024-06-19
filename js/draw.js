@@ -228,6 +228,18 @@ function drawSlots(element, findElement) {
 		divSlotDetails.innerHTML = `&nbsp;`;
 		divSlot.appendChild(divSlotDetails);
 	}
+	if (element.hasOwnProperty("ДляБеременных") && element.ДляБеременных) {
+		divSlotDetails = document.createElement("div");
+		divSlotDetails.className = `slot-type slot-pregnant`;
+		divSlotDetails.innerHTML = `&nbsp;`;
+		divSlot.appendChild(divSlotDetails);
+	}
+	if (element.hasOwnProperty("ДляБеременных") && !element.ДляБеременных) {
+		divSlotDetails = document.createElement("div");
+		divSlotDetails.className = `slot-type slot-not-pregnant`;
+		divSlotDetails.innerHTML = `&nbsp;`;
+		divSlot.appendChild(divSlotDetails);
+	}
 	if (element.hasOwnProperty("Страховка") && element.Страховка) {
 		divSlotDetails = document.createElement("div");
 		divSlotDetails.className = `slot-insurance json-${element.Страховка}`;

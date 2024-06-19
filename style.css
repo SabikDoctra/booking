@@ -317,6 +317,14 @@ html {
 	display: var(--displayPatient);
 }
 
+.slot-pregnant {
+	background-image: url("images/pregnant.png") !important;
+}
+
+.slot-not-pregnant {
+	background-image: url("images/notpregnant.png") !important;
+}
+
 .date-sticky {
 	position: relative;
 	transition: all 0.2s ease 0s;
